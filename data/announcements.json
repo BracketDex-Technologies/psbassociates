@@ -41,6 +41,14 @@
       "publishedAt": "2026-10-01"
     },
     {
+      "id": "icai:https://www.icai.org/post/icai-exam-announcement-01102026:Invitation for contribution to Question Bank in respect of A",
+      "source": "icai",
+      "category": "ICAI",
+      "title": "Invitation for contribution to Question Bank in respect of Advanced Integrated Course on Information Technology and Soft Skills (AICITSS) - Advanced IT test",
+      "url": "https://www.icai.org/post/icai-exam-announcement-01102026",
+      "publishedAt": "2026-10-01"
+    },
+    {
       "id": "rbi:https://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=63716:Auction of State Government Securities",
       "source": "rbi",
       "category": "RBI",
@@ -471,14 +479,6 @@
       "title": "Gross and Net GST revenue collections for the month of Feb, 2026",
       "url": "https://www.gst.gov.in/newsandupdates/read/651",
       "publishedAt": "2026-03-01"
-    },
-    {
-      "id": "icai:https://www.icai.org/post/icai-exam-announcement-01102026:Invitation for contribution to Question Bank in respect of A",
-      "source": "icai",
-      "category": "ICAI",
-      "title": "Invitation for contribution to Question Bank in respect of Advanced Integrated Course on Information Technology and Soft Skills (AICITSS) - Advanced IT test",
-      "url": "https://www.icai.org/post/icai-exam-announcement-01102026",
-      "publishedAt": null
     }
   ],
   "sources": [
@@ -487,30 +487,30 @@
       "label": "GST",
       "url": "https://www.gst.gov.in/newsandupdates",
       "status": "ok",
-      "checkedAt": "2026-10-03T10:54:01.640Z"
+      "checkedAt": "2026-10-03T11:24:58.787Z"
     },
     {
       "id": "income-tax",
       "label": "Income Tax",
       "url": "https://www.incometax.gov.in/iec/foportal/latest-news",
       "status": "ok",
-      "checkedAt": "2026-10-03T10:54:01.640Z"
+      "checkedAt": "2026-10-03T11:24:58.787Z"
     },
     {
       "id": "icai",
       "label": "ICAI",
       "url": "https://www.icai.org/category/announcements",
       "status": "ok",
-      "checkedAt": "2026-10-03T10:54:01.640Z"
+      "checkedAt": "2026-10-03T11:24:58.787Z"
     },
     {
       "id": "rbi",
       "label": "RBI",
       "url": "https://www.rbi.org.in/",
       "status": "ok",
-      "checkedAt": "2026-10-03T10:54:01.640Z"
+      "checkedAt": "2026-10-03T11:24:58.787Z"
     }
   ],
-  "fetchedAt": "2026-10-03T10:54:01.640Z",
+  "fetchedAt": "2026-10-03T11:24:58.787Z",
   "refreshAfter": 900
 }

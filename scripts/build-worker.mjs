@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 const walk=d=>fs.readdirSync(d,{withFileTypes:true}).flatMap(e=>e.name==='server'?[]:e.isDirectory()?walk(path.join(d,e.name)):[path.join(d,e.name)]);
-const mime={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.json':'application/json; charset=utf-8','.webp':'image/webp','.jpg':'image/jpeg','.svg':'image/svg+xml','.xml':'application/xml','.txt':'text/plain'};
+const mime={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.json':'application/json; charset=utf-8','.webp':'image/webp','.jpg':'image/jpeg','.png':'image/png','.svg':'image/svg+xml','.xml':'application/xml','.txt':'text/plain'};
 fs.mkdirSync('dist/assets',{recursive:true});fs.copyFileSync('data/announcements.json','dist/assets/announcements-snapshot.json');
 const assets={};for(const filename of walk('dist')){if(filename.includes('.openai'))continue;const ext=path.extname(filename),binary=['.webp','.jpg','.png'].includes(ext);let route='/'+path.relative('dist',filename).replaceAll('\\','/');const entry={type:mime[ext]||'application/octet-stream',binary,body:fs.readFileSync(filename,binary?'base64':'utf8')};assets[route]=entry;if(route.endsWith('/index.html'))assets[route.slice(0,-10)]=entry;}
 const feed=fs.readFileSync('lib/announcements.mjs','utf8').replace(/\bexport /g,'');
