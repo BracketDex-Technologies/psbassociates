@@ -1,0 +1,5 @@
+import fs from 'node:fs';import path from 'node:path';import assert from 'node:assert/strict';
+const walk=d=>fs.readdirSync(d,{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(path.join(d,e.name)):[path.join(d,e.name)]);
+const html=walk('dist').filter(f=>f.endsWith('.html'));const titles=new Set();
+for(const f of html){const text=fs.readFileSync(f,'utf8');const title=text.match(/<title>(.*?)<\/title>/)[1];assert(!titles.has(title),'Duplicate page title '+title);titles.add(title);assert(text.includes('name="description"'),'Missing description '+f);for(const [,u] of text.matchAll(/(?:href|src)="(\/[^"#?]*)"/g)){const target=path.join('dist',u);assert(fs.existsSync(target),'Missing local target '+u+' in '+f)}}
+assert(html.length===16,'Expected 16 pages');const home=fs.readFileSync('dist/index.html','utf8');assert(home.includes('641644'));assert(!home.includes('Aurangabad'));assert(!home.includes('refinance'));console.log('Verified 16 pages, unique metadata, local links, assets and requested content corrections.');
