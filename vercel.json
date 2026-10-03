@@ -1,0 +1,5 @@
+{
+  "buildCommand": "node build.mjs --origin=https://psbassociates.vercel.app",
+  "outputDirectory": "dist",
+  "framework": null
+}
