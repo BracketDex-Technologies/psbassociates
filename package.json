@@ -1,1 +1,1 @@
-{"name":"psb-associates","private":true,"type":"module","scripts":{"build":"node build.mjs","start":"node server.mjs","check":"node check.mjs"}}
+{"name":"psb-associates","private":true,"type":"module","scripts":{"build":"node build.mjs","start":"node server.mjs","check":"node check.mjs","test":"node --test tests/*.test.mjs","refresh:announcements":"node scripts/snapshot.mjs"},"engines":{"node":">=22"}}

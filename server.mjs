@@ -1,5 +1,3 @@
 import http from 'node:http';
-import fs from 'node:fs';
-import path from 'node:path';
-const root=path.resolve('dist');
-http.createServer((req,res)=>{let url=decodeURIComponent(req.url.split('?')[0]);let file=path.join(root,url);if(!file.startsWith(root+path.sep)&&file!==root){res.writeHead(403).end();return;}if(fs.existsSync(file)&&fs.statSync(file).isDirectory())file=path.join(file,'index.html');if(!fs.existsSync(file)){res.writeHead(404).end('Page not found');return;}const types={'.html':'text/html; charset=utf-8','.css':'text/css','.js':'text/javascript','.webp':'image/webp','.jpg':'image/jpeg','.svg':'image/svg+xml'};res.setHeader('Content-Type',types[path.extname(file)]||'application/octet-stream');res.end(fs.readFileSync(file));}).listen(4173,'127.0.0.1',()=>console.log('Local: http://127.0.0.1:4173'));
+import worker from './dist/server/index.js';
+http.createServer(async(req,res)=>{try{const response=await worker.fetch(new Request('http://127.0.0.1:4173'+req.url,{method:req.method}),{},{});res.writeHead(response.status,Object.fromEntries(response.headers));res.end(Buffer.from(await response.arrayBuffer()));}catch(error){console.error(error);res.writeHead(500).end('Unable to complete request');}}).listen(4173,'127.0.0.1',()=>console.log('Local: http://127.0.0.1:4173'));
