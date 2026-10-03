@@ -21,3 +21,5 @@ The homepage has a compact scrollable feed and the Briefing page has category fi
 The inquiry form opens an email draft and does not deliver or store submissions. Both offices include Google Maps embeds and direction links. A server-delivered form requires a configured email service. The original domain's certificate and DNS are outside this redesign's hosting; a private HTTPS review site is published separately. Moving psbassociates.in requires access to its domain and hosting controls.
 
 Share metadata uses the deployment origin. Vercel runs `node build.mjs --origin=https://psbassociates.vercel.app` via `vercel.json`; other deployments can set `SITE_URL` or pass `--origin`. Social images must be publicly accessible on that same origin.
+
+Vercel serves the live feed through `api/announcements.js`, which shares `lib/announcements.mjs` with the local/Sites Worker. The function has a 30-second execution allowance and uses a warm-instance cache; Refresh bypasses that cache. Verify a deployment with `node scripts/check-live-feed.mjs https://psbassociates.vercel.app`.

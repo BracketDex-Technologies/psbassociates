@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+const origin=process.argv[2];
+assert.ok(origin,'Pass the deployment origin');
+const response=await fetch(new URL('/api/announcements?refresh=1',origin),{signal:AbortSignal.timeout(30000)});
+assert.equal(response.status,200,'Announcements endpoint must be available');
+assert.match(response.headers.get('content-type'),/application\/json/);
+assert.equal(response.headers.get('cache-control'),'no-store','Refresh must bypass cached responses');
+const data=await response.json();
+assert.equal(data.sources.length,4);
+assert.ok(data.items.length>0,'Feed must contain announcements');
+assert.ok(data.sources.every(source=>source.status==='ok'),'Every official source must have responded successfully: '+JSON.stringify(data.sources));
+assert.ok(Date.now()-Date.parse(data.fetchedAt)<60000,'Refresh must have a recent check time');
+console.log(JSON.stringify({status:response.status,items:data.items.length,fetchedAt:data.fetchedAt,sources:data.sources.map(({id,status,checkedAt})=>({id,status,checkedAt}))}));
