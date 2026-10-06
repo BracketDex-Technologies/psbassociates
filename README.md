@@ -18,8 +18,18 @@ The homepage has a compact scrollable feed and the Briefing page has category fi
 
 `build.mjs` generates the pages, `components.mjs` contains shared briefing markup, and `dist/assets/` contains the maintained CSS, JavaScript and image assets. `scripts/build-worker.mjs` bundles those pages/assets with the API into `dist/server/index.js`. Do not delete `dist/assets/` as disposable build output. The Worker includes its own static responses and does not need a database, API key or asset binding. `.openai/hosting.json` retains the existing Sites project ID and now uses Worker hosting.
 
-The inquiry form opens an email draft and does not deliver or store submissions. Both offices include Google Maps embeds and direction links. A server-delivered form requires a configured email service. The original domain's certificate and DNS are outside this redesign's hosting; a private HTTPS review site is published separately. Moving psbassociates.in requires access to its domain and hosting controls.
+The inquiry form uses a protected server delivery flow when Turnstile and Resend are configured, then confirms successful delivery on the thank-you page. Until those environment variables are supplied, it falls back to an email draft and does not pretend that a submission was delivered. Both offices include Google Maps embeds and direction links. The original domain's certificate and DNS are outside this redesign's hosting; a private HTTPS review site is published separately. Moving psbassociates.in requires access to its domain and hosting controls.
 
 Share metadata uses the deployment origin. Vercel runs `node build.mjs --origin=https://psbassociates.vercel.app` via `vercel.json`; other deployments can set `SITE_URL` or pass `--origin`. Social images must be publicly accessible on that same origin.
 
 Vercel serves the live feed through `api/announcements.js`, which shares `lib/announcements.mjs` with the local/Sites Worker. The function has a 30-second execution allowance and uses a warm-instance cache; Refresh bypasses that cache. Verify a deployment with `node scripts/check-live-feed.mjs https://psbassociates.vercel.app`.
+
+
+## Website completion and activation
+- Custom `/404.html` is served by Vercel for missing routes with HTTP 404. `/thank-you/` is excluded from indexing and the sitemap.
+- `npm run check` audits every generated page for unique metadata, alt attributes, internal links, sharing images and structured data. The public sitemap remains `/sitemap.xml` (16 content pages).
+- Set `GA_MEASUREMENT_ID` in Vercel and redeploy to enable consent-based GA4 page views and successful enquiry events. No form contents are sent to Google. Verify Realtime/DebugView in the correct GA property before claiming synchronization.
+- Set `TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`, `RESEND_API_KEY`, `CONTACT_FROM` (a Resend-verified sender) and `CONTACT_TO` securely in Vercel. Register the production hostname in Turnstile. Set `SITE_URL` when using a custom domain. The site key is public; the secret and email API key never enter the build output.
+- `GET /api/contact` reports availability. Until all contact settings exist, the existing mailto enquiry workflow remains available. Online submission requires server-validated Turnstile hostname/action, consent and validated input. Only provider-accepted messages navigate to the thank-you page. Resend acceptance is not a guarantee of inbox delivery.
+- Approved testimonials go in `data/testimonials.json` as objects with `quote`, `name`, optional `role`, and `approved: true`. Obtain permission before inclusion. Empty data produces no section and no fictional testimonials.
+- Account linking, inbox delivery, Search Console submission and testimonials are not complete until the owner supplies credentials/content and live verification is performed.
