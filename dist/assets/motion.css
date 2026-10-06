@@ -1,0 +1,14 @@
+html{scroll-behavior:smooth;scroll-padding-top:100px}
+.practice-card,.resource,.person,.news-item{will-change:transform}
+@media(prefers-reduced-motion:no-preference){
+ .practice-card,.resource,.person{animation:card-rise .65s cubic-bezier(.2,.7,.2,1) both}
+ .practice-card:nth-child(2),.resource:nth-child(2),.person:nth-child(2){animation-delay:.08s}
+ .practice-card:nth-child(3),.resource:nth-child(3),.person:nth-child(3){animation-delay:.16s}
+ .practice-card:nth-child(4),.resource:nth-child(4){animation-delay:.24s}
+ .news-item{animation:card-rise .5s cubic-bezier(.2,.7,.2,1) both}
+ .news-item:nth-child(2){animation-delay:.06s}.news-item:nth-child(3){animation-delay:.12s}.news-item:nth-child(4){animation-delay:.18s}
+ .news-item:nth-child(n+5){animation-delay:.24s}
+ .practice-card:hover,.resource:hover,.person:hover{transform:translateY(-5px)}
+}
+@keyframes card-rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.practice-card,.resource,.person,.news-item{animation:none!important;transform:none!important}}
