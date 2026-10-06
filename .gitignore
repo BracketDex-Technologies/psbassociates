@@ -3,3 +3,5 @@
 !.env.example
 .vercel/
 node_modules/
+docs/contact-redesign/desktop-initial.jpg
+.gitignore
