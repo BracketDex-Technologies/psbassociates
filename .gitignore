@@ -3,3 +3,7 @@
 !.env.example
 .vercel/
 node_modules/
+docs/contact-redesign/desktop-initial.jpg
+.gitignore
+LOCAL_DEVELOPMENT.md
+dist/assets/icons/feather/README.txt
