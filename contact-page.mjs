@@ -50,8 +50,8 @@ export function contactPage({ offices, practices }) {
           </fieldset>
           <label class="contact-message" for="inquiry-message">How can we help?<textarea id="inquiry-message" name="message" rows="4" required maxlength="3000" placeholder="A short overview of your requirements" aria-describedby="contact-privacy-note"></textarea></label>
           <label class="contact-consent"><input type="checkbox" name="consent" required><span>I have read the <a href="/disclaimer/">professional disclaimer</a> and <a href="/privacy/">privacy notice</a>.</span></label>
-          <button type="submit" class="contact-submit">Prepare email inquiry</button>
-          <p id="contact-delivery-note" class="contact-form-note" data-form-note>Opens a draft in your email application. Send it there to deliver your enquiry.</p>
+          <button type="submit" class="contact-submit" disabled>Send enquiry</button>
+          <p id="contact-delivery-note" class="contact-form-note" data-form-note>Your enquiry is sent securely and directly to our team.</p>
           <p id="contact-privacy-note" class="contact-form-note">Please avoid confidential documents or sensitive financial information.</p>
           <p id="form-status" role="status" aria-live="polite"></p>
         </form>
