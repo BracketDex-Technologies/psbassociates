@@ -1,12 +1,36 @@
-import test from 'node:test';import assert from 'node:assert/strict';import {handleContact} from '../lib/contact.mjs';
-const env={SITE_URL:'https://psb.example',TURNSTILE_SITE_KEY:'public-test-key',TURNSTILE_SECRET_KEY:'test-secret',RESEND_API_KEY:'test-api-key',CONTACT_FROM:'PSB <form@psb.example>',CONTACT_TO:'office@psb.example'};
-const valid={name:'Test Person',email:'test@example.com',service:'General inquiry',message:'Test enquiry',consent:true,website:'',token:'test-token'};
-const request=(body=valid,origin='https://psb.example',ip='test')=>new Request('https://psb.example/api/contact',{method:'POST',headers:{Origin:origin,'Content-Type':'application/json','X-Forwarded-For':ip},body:JSON.stringify(body)});
-test('unconfigured contact cannot send or expose secrets',async()=>{const r=await handleContact(request(),{},()=>{throw Error('Must not call provider')});assert.equal(r.status,503);const config=await handleContact(new Request('https://psb.example/api/contact'),env);const text=await config.text();assert(!text.includes('test-secret'));assert(!text.includes('test-api-key'));});
-test('rejects cross-origin, honeypot, missing consent and invalid email before providers',async()=>{for(const [index,[body,origin]]of [[0,[valid,'https://evil.example']],[1,[{...valid,website:'spam'},env.SITE_URL]],[2,[{...valid,consent:false},env.SITE_URL]],[3,[{...valid,email:'bad'},env.SITE_URL]]]){const r=await handleContact(request(body,origin,'invalid-'+index),env,()=>{throw Error('Must not call provider')});assert([400,403].includes(r.status));}});
-test('failed, mismatched or expired Turnstile never sends email',async()=>{for(const [index,verification]of [{success:false},{success:true,hostname:'evil.example',action:'contact'},{success:true,hostname:'psb.example',action:'other'}].entries()){let calls=0;const r=await handleContact(request(valid,env.SITE_URL,'turnstile-'+index),env,async()=>{calls++;return Response.json(verification)});assert.equal(r.status,400);assert.equal(calls,1);}});
-test('only verified enquiries accepted by email provider return success',async()=>{const calls=[];const r=await handleContact(request(),env,async(url,options)=>{calls.push({url,body:JSON.parse(options.body)});return Response.json(calls.length===1?{success:true,hostname:'psb.example',action:'contact'}:{id:'delivery-test'});});assert.equal(r.status,200);assert.deepEqual(await r.json(),{ok:true});assert.equal(calls[1].body.reply_to,valid.email);assert.deepEqual(calls[1].body.to,[env.CONTACT_TO]);});
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { handleContact } from '../lib/contact.mjs';
 
-test('defaults verified enquiries to the bracketdevs team inbox',async()=>{const calls=[];const envWithoutRecipient={...env};delete envWithoutRecipient.CONTACT_TO;const r=await handleContact(request(),envWithoutRecipient,async(url,options)=>{calls.push({url,body:JSON.parse(options.body)});return Response.json(calls.length===1?{success:true,hostname:'psb.example',action:'contact'}:{id:'delivery-test'});});assert.equal(r.status,200);assert.deepEqual(calls[1].body.to,['bracketdevs.teams@gmail.com']);});
-test('delivery failure cannot lead to a success confirmation',async()=>{let calls=0;const r=await handleContact(request(),env,async()=>++calls===1?Response.json({success:true,hostname:'psb.example',action:'contact'}):new Response('down',{status:503}));assert.equal(r.status,502);assert(!(await r.json()).ok);});
-test('rate limits repeated submissions from one client',async()=>{for(let i=0;i<5;i++){const r=await handleContact(request(valid,env.SITE_URL,'rate-limit-test'),env,async()=>Response.json({success:false}));assert.equal(r.status,400);}const blocked=await handleContact(request(valid,env.SITE_URL,'rate-limit-test'),env,async()=>{throw Error('Provider must not be called')});assert.equal(blocked.status,429);assert((await blocked.json()).error.includes('Too many'));});
+test('contact configuration enables Web3Forms with its public access key', async () => {
+  const response = await handleContact(
+    new Request('https://psb.example/api/contact'),
+    { WEB3FORMS_ACCESS_KEY: 'web3forms-test-key' },
+  );
+
+  assert.equal(response.status, 200);
+  assert.deepEqual(await response.json(), {
+    enabled: true,
+    accessKey: 'web3forms-test-key',
+  });
+});
+
+test('contact configuration stays disabled without a Web3Forms access key', async () => {
+  const response = await handleContact(
+    new Request('https://psb.example/api/contact'),
+    {},
+  );
+
+  assert.equal(response.status, 200);
+  assert.deepEqual(await response.json(), { enabled: false, accessKey: '' });
+});
+
+test('contact endpoint rejects server-side submissions', async () => {
+  const response = await handleContact(
+    new Request('https://psb.example/api/contact', { method: 'POST' }),
+    { WEB3FORMS_ACCESS_KEY: 'web3forms-test-key' },
+  );
+
+  assert.equal(response.status, 405);
+  assert.equal(response.headers.get('allow'), 'GET');
+});
