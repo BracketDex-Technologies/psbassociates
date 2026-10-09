@@ -11,3 +11,29 @@
 .career-application-simple{padding-top:65px}.career-role-summary{display:flex;flex-wrap:wrap;gap:9px;margin-top:25px}.career-role-summary span{padding:8px 11px;background:#edf3f7;border-radius:4px;color:#49657b;font-size:.78rem}
 @media(max-width:650px){.career-application-copy{position:static}.career-form{padding:24px 20px}}
 @media(max-width:650px){.career-application-simple{padding-top:42px}}
+
+/* Navy Signature identity, shared by every page header. */
+header,header.scrolled{background:#102b43;border-bottom:1px solid #ffffff16;box-shadow:0 5px 24px #091c2d18}
+header .nav-wrap{min-height:94px;gap:24px}
+header .nav-identities{gap:18px}
+header .ca-india-mark{width:70px;height:62px;padding:7px;background:#fff;border-radius:6px}
+header .ca-india-mark img{width:56px;height:auto}
+header .brand-name-only{border-left:1px solid #ffffff35;padding-left:18px;color:#fff}
+header .brand>div{font-size:1.2rem;line-height:1.25;letter-spacing:-.025em}
+header .brand small{color:#dfbd80;font-size:.6rem;letter-spacing:.16em;margin-top:7px}
+header nav{gap:23px;font-size:.84rem;color:#eff4f8}
+header nav a:hover{color:#dfbd80}
+header nav a[aria-current=page]:after{background:#dfbd80}
+header .nav-contact{background:#dfbd80;border-color:#dfbd80;color:#102b43;padding:11px 19px;border-radius:4px}
+header .nav-contact:hover{background:#ecd1a2;border-color:#ecd1a2;color:#102b43}
+header .menu-toggle{color:#dfbd80}
+header a:focus-visible,header .menu-toggle:focus-visible{outline:2px solid #dfbd80;outline-offset:5px}
+@media(min-width:901px) and (max-width:1200px){header .nav-wrap{gap:16px}header .nav-identities{gap:12px}header .brand-name-only{padding-left:12px}header .brand>div{font-size:1.02rem}header nav{gap:14px;font-size:.76rem}header .nav-contact{padding:10px 12px}header .ca-india-mark{width:58px;height:54px}header .ca-india-mark img{width:46px}}
+@media(max-width:900px){header .nav-wrap{min-height:86px}header nav{top:100%;background:#102b43;border-color:#ffffff20;padding:18px 32px;font-size:.95rem}header nav.open{gap:0}header nav a{padding:13px 0}header nav .nav-contact{padding:12px 18px;margin-top:12px}header .menu-toggle{font-size:0;gap:0;padding:10px}header .menu-toggle span{font-size:1.6rem}}
+@media(max-width:650px){header .nav-wrap{width:calc(100% - 28px);min-height:82px;gap:8px}header .nav-identities{gap:11px}header .ca-india-mark{width:53px;height:51px;padding:5px}header .ca-india-mark img{width:43px}header .brand-name-only{padding-left:11px}header .brand>div{font-size:clamp(.88rem,3.6vw,1.05rem)}header .brand small{font-size:.5rem;letter-spacing:.12em;margin-top:5px}header .menu-toggle{padding:8px 0 8px 6px}header .menu-toggle span{font-size:1.5rem}header nav{padding:15px 22px}}
+@media(max-width:360px){header .nav-identities{gap:7px}header .brand-name-only{padding-left:7px}header .ca-india-mark{width:45px;height:45px}header .ca-india-mark img{width:37px}header .brand>div{font-size:.84rem}header .brand small{font-size:.44rem}}
+@media(max-width:900px){header .nav-wrap{flex-wrap:wrap;row-gap:0}header .nav-identities{min-height:86px}header nav{position:static;flex-basis:100%;width:100%;padding:0 0 18px;border-bottom:0;border-top:1px solid #ffffff20}header nav.open{display:flex}header nav a{padding:11px 0}}
+@media(max-width:650px){header .nav-identities{min-height:82px}}
+header .brand small{font-family:'DM Sans',Arial,sans-serif;font-size:.74rem;font-weight:500;line-height:1.5;letter-spacing:.035em;text-transform:none}
+@media(max-width:650px){header .brand small{font-size:.64rem;letter-spacing:.025em}}
+@media(max-width:360px){header .brand small{font-size:.58rem}}

@@ -1,6 +1,7 @@
 .home-hero{background:#f6f4ef;overflow:hidden;position:relative;color:#132e42}
 .home-hero-grid{display:grid;grid-template-columns:1.12fr 1fr;align-items:center;gap:72px;padding-top:66px;padding-bottom:54px}
 .home-hero h1{font-size:clamp(3.3rem,5.05vw,5rem);line-height:1.12;letter-spacing:-.065em;font-weight:500;margin:0}
+.home-hero h1{caret-color:transparent}
 .home-hero h1 em{font-family:Georgia,serif;font-weight:400;letter-spacing:-.055em;color:#94703c;white-space:nowrap}
 .home-hero-copy>p{font-size:1.08rem;line-height:1.8;max-width:455px;margin-top:28px;color:#61717a}
 .home-actions{display:flex;gap:26px;align-items:center;margin-top:32px;flex-wrap:wrap}
