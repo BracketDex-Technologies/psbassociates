@@ -2,11 +2,11 @@
 
 For local startup, the UI source map, and the rebuild workflow, see [Local development and project map](LOCAL_DEVELOPMENT.md).
 
-Responsive 16-page website with a server-side announcements API. Requires Node.js 22 or newer and has no package dependencies. Run `npm run build` to regenerate HTML and the self-contained Cloudflare Worker from `build.mjs`, `npm run check` to verify pages and references, `npm test` for feed parsing and failure-handling tests, and `npm start` for http://127.0.0.1:4173. The local server runs the same Worker entrypoint used in production.
+Responsive 19-page website with a server-side announcements API. Requires Node.js 22 or newer and has no package dependencies. Run `npm run build` to regenerate HTML and the self-contained Cloudflare Worker from `build.mjs`, `npm run check` to verify pages and references, `npm test` for feed parsing and failure-handling tests, and `npm start` for http://127.0.0.1:4173. The local server runs the same Worker entrypoint used in production.
 
-Source facts: http://www.psbassociates.in/ and the user-supplied review. Visual references: https://sseco.in/ and https://www.kirtanepandit.com/. The library and collaboration images are retained from the existing PSB website. Portraits are user-supplied; Photo.png is provisionally mapped to CA Bharadwaj R. Mandhane. No additional qualifications or specialisations are invented for CA Sagar Sahebrao Nikam.
+Source facts: http://www.psbassociates.in/ and the user-supplied review. Visual references: https://sseco.in/ and https://www.kirtanepandit.com/. The library and collaboration images are retained from the existing PSB website. Portraits are user-supplied; Photo.png is provisionally mapped to CA Bharadwaj R. Mandhane. CA Sagar S. Nikam's displayed qualification is the user-supplied M.Com., ACA.
 
-Content corrections include city renaming, 12+ years of firm practice, dynamic copyright year, duplicate removal, replacement accounting copy, professional disclaimer, partner addition and refreshed photos. Business intelligence offerings are retained under Accounting & Virtual CFO. Portraits appear in PSB order: Pavan, Sagar, Bharadwaj. No testimonials or client logos are published.
+Content corrections include city renaming, 13+ years of firm practice, dynamic copyright year, duplicate removal, replacement accounting copy, professional disclaimer, partner addition and refreshed photos. Business intelligence offerings are retained under Accounting & Virtual CFO. Portraits appear in PSB order: Pavan, Sagar, Bharadwaj. No testimonials or client logos are published.
 
 ## Announcements
 
