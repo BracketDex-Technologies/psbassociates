@@ -33,6 +33,7 @@ export function contactPage({ offices, practices }) {
         </div>
 
         <form id="inquiry" class="contact-form" aria-labelledby="inquiry-title" aria-describedby="contact-delivery-note">
+          <button type="button" class="contact-back-button" data-contact-back><span aria-hidden="true">←</span> Back</button>
           <div class="contact-form-heading">
             <h2 id="inquiry-title">Share the context.</h2>
             <p>Tell us what you need help with.</p>

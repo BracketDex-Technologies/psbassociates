@@ -9,7 +9,13 @@
   const serviceSummary = form.querySelector('.contact-service-summary');
   const servicePlaceholder = form.querySelector('[data-service-placeholder]');
   const serviceError = form.querySelector('[data-service-error]');
+  const backButton = form.querySelector('[data-contact-back]');
   let accessKey = '';
+
+  backButton?.addEventListener?.('click', () => {
+    if (window.history.length > 1) window.history.back();
+    else window.location.assign('/');
+  });
 
   const serviceInputs = form.querySelectorAll ? [...form.querySelectorAll('input[name="service"]')] : [];
   const updateServices = () => {
