@@ -9,12 +9,12 @@
   const serviceSummary = form.querySelector('.contact-service-summary');
   const servicePlaceholder = form.querySelector('[data-service-placeholder]');
   const serviceError = form.querySelector('[data-service-error]');
-  const backButton = form.querySelector('[data-contact-back]');
+  const serviceBackButton = form.querySelector('[data-service-back]');
   let accessKey = '';
 
-  backButton?.addEventListener?.('click', () => {
-    if (window.history.length > 1) window.history.back();
-    else window.location.assign('/');
+  serviceBackButton?.addEventListener?.('click', () => {
+    serviceTrigger?.setAttribute('aria-expanded', 'false');
+    if (serviceMenu) serviceMenu.hidden = true;
   });
 
   const serviceInputs = form.querySelectorAll ? [...form.querySelectorAll('input[name="service"]')] : [];

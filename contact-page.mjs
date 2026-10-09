@@ -33,7 +33,6 @@ export function contactPage({ offices, practices }) {
         </div>
 
         <form id="inquiry" class="contact-form" aria-labelledby="inquiry-title" aria-describedby="contact-delivery-note">
-          <button type="button" class="contact-back-button" data-contact-back><span aria-hidden="true">←</span> Back</button>
           <div class="contact-form-heading">
             <h2 id="inquiry-title">Share the context.</h2>
             <p>Tell us what you need help with.</p>
@@ -51,6 +50,7 @@ export function contactPage({ offices, practices }) {
                 <span data-service-placeholder>Select one or more areas</span><span class="contact-service-chevron" aria-hidden="true">⌄</span>
               </button>
               <div id="contact-service-menu" class="contact-service-menu" hidden>
+                <button type="button" class="contact-service-menu-back" data-service-back><span aria-hidden="true">←</span> Back</button>
                 ${services.map((service, index) => `<label class="contact-service-option"><input type="checkbox" name="service" value="${escapeHtml(service)}"${index === 0 ? ' required' : ''}><span>${escapeHtml(service)}</span></label>`).join('\n')}
               </div>
             </div>
