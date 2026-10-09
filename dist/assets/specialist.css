@@ -53,9 +53,11 @@ header nav,header .menu-toggle{color:#102b43}
 header .ca-india-mark{background:transparent}
 @media(max-width:900px){header nav{background:#fcfdfff5;border-top-color:#102b4320;padding:12px 16px 18px;border-radius:4px}}
 
-/* Alternate typography for the header identity only. */
-header .brand>div{font-family:'Libre Baskerville',Georgia,serif;font-weight:400;font-size:1.35rem;line-height:1.35;letter-spacing:-.035em}
-header .brand small{font-family:Manrope,Arial,sans-serif;font-size:.76rem;font-weight:500;letter-spacing:.045em;margin-top:6px}
-@media(min-width:901px) and (max-width:1200px){header .brand>div{font-size:1.08rem}}
-@media(max-width:650px){header .brand>div{font-size:clamp(.88rem,3.6vw,1.12rem)}header .brand small{font-size:.66rem;letter-spacing:.025em}}
-@media(max-width:360px){header .brand>div{font-size:.85rem}header .brand small{font-size:.6rem}}
+/* Shared header and footer identity typography. */
+header .brand>div,.footer-identities .brand>div{font-family:'Libre Baskerville',Georgia,serif;font-weight:400;font-size:1.35rem;line-height:1.35;letter-spacing:-.035em}
+header .brand small,.footer-identities .brand small{font-family:Manrope,Arial,sans-serif;font-size:.76rem;font-weight:500;line-height:1.5;letter-spacing:.045em;margin-top:6px}
+@media(min-width:901px) and (max-width:1200px){header .brand>div,.footer-identities .brand>div{font-size:1.08rem}}
+@media(max-width:650px){header .brand>div,.footer-identities .brand>div{font-size:clamp(.88rem,3.6vw,1.12rem)}header .brand small,.footer-identities .brand small{font-size:.66rem;letter-spacing:.025em}}
+@media(max-width:360px){header .brand>div,.footer-identities .brand>div{font-size:.85rem}header .brand small,.footer-identities .brand small{font-size:.6rem}}
+
+.footer-identities .brand{min-width:0;flex-shrink:1;color:#102b43}.footer-identities .brand small{color:#607487}
