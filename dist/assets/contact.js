@@ -4,7 +4,36 @@
 
   const status = document.querySelector('#form-status');
   const submit = form.querySelector('button[type="submit"]');
+  const serviceTrigger = form.querySelector('.contact-service-trigger');
+  const serviceMenu = form.querySelector('.contact-service-menu');
+  const serviceSummary = form.querySelector('.contact-service-summary');
+  const servicePlaceholder = form.querySelector('[data-service-placeholder]');
+  const serviceError = form.querySelector('[data-service-error]');
   let accessKey = '';
+
+  const serviceInputs = form.querySelectorAll ? [...form.querySelectorAll('input[name="service"]')] : [];
+  const updateServices = () => {
+    if (!serviceInputs.length) return;
+    const selected = serviceInputs.filter(input => input.checked);
+    servicePlaceholder.textContent = selected.length ? `${selected.length} area${selected.length === 1 ? '' : 's'} selected` : 'Select one or more areas';
+    serviceSummary.innerHTML = selected.map(input => `<span class="contact-service-breadcrumb"><span>Area of interest</span><b aria-hidden="true">›</b>${input.value}</span>`).join('');
+    serviceError.hidden = selected.length > 0;
+    serviceInputs[0].setCustomValidity(selected.length ? '' : 'Select at least one area of interest.');
+  };
+
+  serviceTrigger?.addEventListener?.('click', () => {
+    const open = serviceTrigger.getAttribute('aria-expanded') === 'true';
+    serviceTrigger.setAttribute('aria-expanded', String(!open));
+    serviceMenu.hidden = open;
+  });
+  serviceInputs.forEach(input => input.addEventListener?.('change', updateServices));
+  document.addEventListener?.('click', event => {
+    if (serviceMenu && !serviceMenu.hidden && !event.target.closest('.contact-service-dropdown')) {
+      serviceTrigger.setAttribute('aria-expanded', 'false');
+      serviceMenu.hidden = true;
+    }
+  });
+  updateServices();
 
   fetch('/api/contact', { cache: 'no-store' })
     .then(response => response.ok ? response.json() : Promise.reject())
@@ -39,12 +68,13 @@
     }
 
     const applicationType = values.get('application_type');
-    const service = values.get('service');
+    const services = values.getAll ? values.getAll('service') : (values.get('service') ? [values.get('service')] : []);
+    const service = services.join(', ');
     const subjectPrefix = form.dataset.formSubjectPrefix || 'PSB website enquiry';
     const subjectDetail = applicationType || service || 'General inquiry';
     const payload = {
       access_key: accessKey,
-      subject: `${subjectPrefix}: ${subjectDetail}`,
+      subject: `${subjectPrefix}: ${services[0] || subjectDetail}`,
       from_name: 'PSB Associates Website',
       name: values.get('name'),
       email: values.get('email'),

@@ -44,9 +44,17 @@ export function contactPage({ offices, practices }) {
           </div>
           <fieldset class="contact-services">
             <legend>Area of interest</legend>
-            <div class="contact-service-options">
-              ${services.map((service, index) => `<label class="contact-service-option"><input type="radio" name="service" value="${escapeHtml(service)}" required${index === 0 ? ' checked' : ''}><span>${escapeHtml(service)}</span></label>`).join('\n')}
+            <p class="contact-field-hint">Select all that apply.</p>
+            <div class="contact-service-dropdown">
+              <button type="button" class="contact-service-trigger" aria-expanded="false" aria-controls="contact-service-menu">
+                <span data-service-placeholder>Select one or more areas</span><span class="contact-service-chevron" aria-hidden="true">⌄</span>
+              </button>
+              <div id="contact-service-menu" class="contact-service-menu" hidden>
+                ${services.map((service, index) => `<label class="contact-service-option"><input type="checkbox" name="service" value="${escapeHtml(service)}"${index === 0 ? ' required' : ''}><span>${escapeHtml(service)}</span></label>`).join('\n')}
+              </div>
             </div>
+            <div class="contact-service-summary" aria-live="polite" aria-label="Selected areas of interest"></div>
+            <p class="contact-field-error" data-service-error role="alert" hidden>Please select at least one area of interest.</p>
           </fieldset>
           <label class="contact-message" for="inquiry-message">How can we help?<textarea id="inquiry-message" name="message" rows="4" required maxlength="3000" placeholder="A short overview of your requirements" aria-describedby="contact-privacy-note"></textarea></label>
           <label class="contact-consent"><input type="checkbox" name="consent" required><span>I have read the <a href="/disclaimer/">professional disclaimer</a> and <a href="/privacy/">privacy notice</a>.</span></label>
