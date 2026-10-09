@@ -1,5 +1,6 @@
 html{scroll-behavior:smooth;scroll-padding-top:100px}
 .practice-card,.resource,.person,.news-item{will-change:transform}
+.firm-strip strong[data-count]{font-variant-numeric:tabular-nums;will-change:transform,opacity}
 .practice-card:nth-child(2){--card-accent:#b47a36;background:linear-gradient(180deg,#fffaf1 0,#fff 38%);border-top:3px solid #d3a05d!important}
 .practice-card:nth-child(3){--card-accent:#287d7b;background:linear-gradient(180deg,#f0faf8 0,#fff 38%);border-top:3px solid #63a9a3!important}
 .practice-card:nth-child(4){--card-accent:#5d6ea9;background:linear-gradient(180deg,#f3f5fc 0,#fff 38%);border-top:3px solid #8795c1!important}
