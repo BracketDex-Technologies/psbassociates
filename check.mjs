@@ -10,7 +10,7 @@ for(const file of html){
  const image=text.match(/property="og:image" content="([^"]+)"/)?.[1];assert(image?.startsWith('https://'),'Missing HTTPS preview '+file);assert(fs.existsSync(path.join('dist',new URL(image).pathname)),'Missing preview image '+file);assert(text.includes('name="twitter:image"'),'Missing social preview '+file);
  JSON.parse(text.match(/<script type="application\/ld\+json">(.*?)<\/script>/)?.[1]);
 }
-assert.equal(html.length,21,'Expected 19 content pages plus 404 and thank-you');const sitemap=fs.readFileSync('dist/sitemap.xml','utf8');assert.equal((sitemap.match(/<loc>/g)||[]).length,19);assert(!sitemap.includes('thank-you')&&!sitemap.includes('404.html'));
+assert.equal(html.length,22,'Expected 20 content pages plus 404 and thank-you');const sitemap=fs.readFileSync('dist/sitemap.xml','utf8');assert.equal((sitemap.match(/<loc>/g)||[]).length,20);assert(sitemap.includes('/careers/'));assert(!sitemap.includes('thank-you')&&!sitemap.includes('404.html'));
 for(const page of ['404.html','thank-you/index.html'])assert(fs.readFileSync('dist/'+page,'utf8').includes('noindex, follow'));
 assert(fs.readFileSync('dist/robots.txt','utf8').includes('Sitemap: https://'));const home=fs.readFileSync('dist/index.html','utf8');assert(home.includes('13+'));assert(home.includes('data-animated-stats'));assert(home.indexOf('/assets/gsap.min.js')<home.indexOf('/assets/site.js'));assert(home.includes('M.Com., ACA'));assert(home.includes('href="tel:+919922412220"'));assert(!home.includes('about:invalid'));assert(!home.includes('Aurangabad'));assert(!home.includes('refinance'));
-console.log('Verified 21 pages: unique titles/descriptions, H1s, alt text, internal links, social images, structured data, sitemap, contact link and utility-page noindex.');
+console.log('Verified 22 pages: unique titles/descriptions, H1s, alt text, internal links, social images, structured data, sitemap, contact link and utility-page noindex.');
