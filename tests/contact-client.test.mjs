@@ -80,3 +80,64 @@ test('contact form submits directly to Web3Forms and opens no email application'
   );
   assert.equal(destination, '/thank-you/');
 });
+
+test('career form emails the complete applicant profile with a clear subject', async () => {
+  const source = await readFile(clientPath, 'utf8');
+  const listeners = {};
+  const submit = { disabled: true };
+  const status = { textContent: '' };
+  const note = { textContent: '' };
+  const form = {
+    dataset: { formSubjectPrefix: 'PSB career application' },
+    querySelector: () => submit,
+    reportValidity: () => true,
+    addEventListener: (event, listener) => { listeners[event] = listener; },
+  };
+  const values = new Map([
+    ['name', 'Applicant Name'],
+    ['email', 'applicant@example.com'],
+    ['phone', '+91 98765 43210'],
+    ['application_type', 'CA Articleship'],
+    ['preferred_location', 'Hingoli'],
+    ['profile_link', 'https://example.com/resume'],
+    ['message', 'Available from November.'],
+    ['consent', 'on'],
+    ['website', ''],
+  ]);
+  const fetchCalls = [];
+
+  const context = {
+    document: {
+      querySelector(selector) {
+        if (selector === '#inquiry') return form;
+        if (selector === '#form-status') return status;
+        if (selector === '[data-form-note]') return note;
+        return null;
+      },
+    },
+    FormData: class {
+      get(name) { return values.get(name) ?? null; }
+    },
+    fetch: async (url, options = {}) => {
+      fetchCalls.push({ url, options });
+      if (url === '/api/contact') return { ok: true, json: async () => ({ enabled: true, accessKey: 'web3forms-test-key' }) };
+      return { ok: true, json: async () => ({ success: true }) };
+    },
+    AbortSignal,
+    location: { assign() {} },
+    sessionStorage: { setItem() {} },
+    setTimeout,
+    clearTimeout,
+  };
+
+  vm.runInNewContext(source, context);
+  await new Promise(resolve => setImmediate(resolve));
+  await listeners.submit({ preventDefault() {} });
+
+  const payload = JSON.parse(fetchCalls[1].options.body);
+  assert.equal(payload.subject, 'PSB career application: CA Articleship');
+  assert.equal(payload.replyto, 'applicant@example.com');
+  assert.equal(payload.phone, '+91 98765 43210');
+  assert.equal(payload.preferred_location, 'Hingoli');
+  assert.equal(payload.profile_link, 'https://example.com/resume');
+});
