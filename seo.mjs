@@ -48,7 +48,10 @@ function pageSeo(origin,route,title,description){
   office.url=origin+'/contact/#office-'+city.toLowerCase();
   office.parentOrganization={'@id':firm['@id']};
   office.openingHoursSpecification=firm.openingHoursSpecification;
-  if(city==='Pune')office.hasMap='https://maps.app.goo.gl/kXgueiyf7dEYAdwx8?g_st=iw';
+  if(city==='Pune'){
+   office.hasMap='https://maps.app.goo.gl/kXgueiyf7dEYAdwx8?g_st=iw';
+   office.telephone='+91-9422868050';
+  }
  }
  const graph=[firm,{'@type':'WebSite','@id':origin+'/#website',name,alternateName:'PSB Associates LLP',url:origin+'/',publisher:{'@id':firm['@id']}},{'@type':'WebPage','@id':origin+route+'#webpage',url:origin+route,name:headline,description,inLanguage:'en-IN',isPartOf:{'@id':origin+'/#website'},about:{'@id':firm['@id']}}];
  for(const offer of firm.hasOfferCatalog.itemListElement)offer.itemOffered.audience=industries.map(industry=>({'@type':'BusinessAudience',audienceType:industry.name}));
