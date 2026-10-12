@@ -1,6 +1,6 @@
 export const faqs=[
  ['What services does PSB Associates provide?','P S B & Associates LLP provides audit and assurance, income tax and GST compliance, corporate advisory, business setup, accounting outsourcing, payroll, MIS reporting and virtual CFO services.'],
- ['Where are PSB Associates offices located?','The firm has its head office in Chhatrapati Sambhajinagar and a branch office in Hingoli, Maharashtra. Office addresses and directions are available on the Contact page.'],
+ ['Where are PSB Associates offices located?','The firm has offices in Chhatrapati Sambhajinagar, Hingoli and Pune, Maharashtra. Office addresses and directions are available on the Contact page.'],
  ['Does PSB work with startups and companies?','Yes. The firm supports startups, Indian and multinational companies, financial institutions, individuals, NGOs and public trusts. Engagement scope is agreed according to each client’s requirements.'],
  ['How can I contact PSB Associates?','Email office@psbassociates.in or call +91 99224 12220. Office hours are Monday to Saturday, 10:30 AM to 7:30 PM IST.'],
  ['Where does the PSB Briefing get its updates?','The Briefing checks the official GST, Income Tax, ICAI and RBI announcement sources. Each item links to its official source and shows the publication date when available. Refresh checks all four sources immediately; unavailable sources retain clearly marked previously checked information.']
@@ -13,9 +13,9 @@ export function seo(origin,route,title,description){
 function pageSeo(origin,route,title,description){
  const name='P S B & Associates LLP';
  const searchTitles={
-  '/':'PSB Associates LLP | Chartered Accountants in Chhatrapati Sambhajinagar & Hingoli',
+  '/':'PSB Associates LLP | Chartered Accountants in Maharashtra',
   '/about/':'About PSB Associates LLP | Chartered Accountants',
-  '/contact/':'Contact PSB Associates | CA Offices in Sambhajinagar & Hingoli',
+  '/contact/':'Contact PSB Associates | CA Offices in Maharashtra',
   '/services/':'Audit, GST, Tax & Accounting Services | PSB Associates LLP',
   '/services/audit-assurance/':'Audit & Assurance in Sambhajinagar & Hingoli | PSB Associates',
   '/services/taxation/':'Income Tax & GST Advisory in Sambhajinagar | PSB Associates',
@@ -26,7 +26,7 @@ function pageSeo(origin,route,title,description){
   '/services/llp-partnership-structuring/':'LLP & Partnership Formation Advisory | PSB Associates LLP'
  };
  const headline=searchTitles[route]||`${title} | ${name}`;
- const firm={'@type':'AccountingService','@id':origin+'/#firm',name,alternateName:'PSB Associates',url:origin+'/',logo:origin+'/assets/brand-icon.png',image:origin+'/assets/social-preview.png',description:'Chartered accountants providing audit, income tax, GST, accounting and corporate advisory services since 2013.',foundingDate:'2013',telephone:'+91-9922412220',email:'office@psbassociates.in',address:{'@type':'PostalAddress',streetAddress:'Office No. 5 & 6, next to CIDCO Bus Stand, Jalgaon Road, N-1, CIDCO',addressLocality:'Chhatrapati Sambhajinagar',addressRegion:'Maharashtra',addressCountry:'IN'},areaServed:['Chhatrapati Sambhajinagar','Hingoli','India'],openingHoursSpecification:{'@type':'OpeningHoursSpecification',dayOfWeek:['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],opens:'10:30',closes:'19:30'},department:{'@type':'AccountingService',name:name+' — Hingoli office',address:{'@type':'PostalAddress',streetAddress:'Shop No. 18 & 19, Municipal Shopping Complex, near Peoples Co-Op. Bank, Akola Road',addressLocality:'Hingoli',addressRegion:'Maharashtra',postalCode:'431513',addressCountry:'IN'},telephone:'+91-9403806446'}};
+ const firm={'@type':'AccountingService','@id':origin+'/#firm',name,alternateName:'PSB Associates',url:origin+'/',logo:origin+'/assets/brand-icon.png',image:origin+'/assets/social-preview.png',description:'Chartered accountants providing audit, income tax, GST, accounting and corporate advisory services since 2013.',foundingDate:'2013',telephone:'+91-9922412220',email:'office@psbassociates.in',address:{'@type':'PostalAddress',streetAddress:'Office No. 5 & 6, next to CIDCO Bus Stand, Jalgaon Road, N-1, CIDCO',addressLocality:'Chhatrapati Sambhajinagar',addressRegion:'Maharashtra',addressCountry:'IN'},areaServed:['Chhatrapati Sambhajinagar','Hingoli','Pune','India'],openingHoursSpecification:{'@type':'OpeningHoursSpecification',dayOfWeek:['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],opens:'10:30',closes:'19:30'},department:[{'@type':'AccountingService',name:name+' — Hingoli office',address:{'@type':'PostalAddress',streetAddress:'Shop No. 18 & 19, Municipal Shopping Complex, near Peoples Co-Op. Bank, Akola Road',addressLocality:'Hingoli',addressRegion:'Maharashtra',postalCode:'431513',addressCountry:'IN'},telephone:'+91-9403806446'},{'@type':'AccountingService',name:name+' — Pune office',address:{'@type':'PostalAddress',streetAddress:'Office No. 229, Ultima Business Centre, Near Shree Shantinagar Society, Kondhwa Budruk',addressLocality:'Pune',addressRegion:'Maharashtra',postalCode:'411048',addressCountry:'IN'}}]};
  firm.address.streetAddress='Office No. 5 & 6, Mehra Chambers, next to CIDCO Bus Stand, Jalgaon Road, N-1, CIDCO';
  firm.alternateName=['PSB Associates','PSB Associates LLP','P S B & Associates LLP'];
  const graph=[firm,{'@type':'WebSite','@id':origin+'/#website',name,alternateName:'PSB Associates LLP',url:origin+'/',publisher:{'@id':firm['@id']}},{'@type':'WebPage','@id':origin+route+'#webpage',url:origin+route,name:headline,description,inLanguage:'en-IN',isPartOf:{'@id':origin+'/#website'},about:{'@id':firm['@id']}}];

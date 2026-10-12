@@ -58,6 +58,9 @@
 .contact-phone-links { display: flex; flex-wrap: wrap; gap: 6px 18px; color: var(--navy); }
 .contact-details .contact-phone-links { font-size: 1.05rem; }
 .contact-phone-links a + a { border-left: 1px solid #c8cdd0; padding-left: 18px; }
+.whatsapp-link { display: inline-grid; place-items: center; width: 30px; height: 30px; margin-left: 2px; border-radius: 50%; background: #25d366; color: #fff; vertical-align: middle; }
+.whatsapp-link:hover { background: #1da851; color: #fff; }
+.whatsapp-icon { width: 17px; height: 17px; background: currentColor; mask: url('/assets/icons/whatsapp.svg') center / contain no-repeat; }
 .contact-details a:hover, .contact-office a:hover { color: #805c29; text-decoration: underline; text-underline-offset: 4px; }
 
 .contact-form { min-width: 0; margin: 0; padding: 32px 36px 26px; background: #fff; border: 1px solid #dfe5e9; border-radius: 7px; }

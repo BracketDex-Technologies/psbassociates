@@ -4,6 +4,7 @@ const escapeHtml = value => String(value)
 
 const icon = name => `<span class="contact-icon contact-icon-${name}" aria-hidden="true"></span>`;
 const phoneLinks = phones => phones.map(number => `<a href="tel:+91${number}">+91 ${number}</a>`).join('');
+const whatsappLink = number => `<a class="whatsapp-link" href="https://wa.me/91${number}" target="_blank" rel="noopener" aria-label="Chat with P S B &amp; Associates LLP on WhatsApp"><span class="whatsapp-icon" aria-hidden="true"></span><span class="sr-only">WhatsApp</span></a>`;
 
 export function contactPage({ offices, practices }) {
   const services = [...practices.map(practice => practice.name), 'General inquiry'];
@@ -14,7 +15,7 @@ export function contactPage({ offices, practices }) {
         <div class="contact-introduction">
           <span class="eyebrow contact-eyebrow">Contact &amp; offices</span>
           <h1 id="contact-title">A conversation <br>starts with <br>understanding.</h1>
-          <p class="contact-lead">Tell us what you need help with and our team will get back to you from our Chhatrapati Sambhajinagar or Hingoli office.</p>
+          <p class="contact-lead">Tell us what you need help with and our team will get back to you from one of our offices in Maharashtra.</p>
 
           <ul class="contact-details">
             <li>
@@ -27,7 +28,7 @@ export function contactPage({ offices, practices }) {
             </li>
             <li>
               <span class="contact-icon-badge">${icon('phone')}</span>
-              <div><span class="contact-detail-label">Prefer to call?</span><p class="contact-office-label">Head office</p><div class="contact-phone-links">${phoneLinks(offices[0].phones)}</div></div>
+              <div><span class="contact-detail-label">Prefer to call?</span><p class="contact-office-label">Head office</p><div class="contact-phone-links">${phoneLinks(offices[0].phones)}${whatsappLink('9422868050')}</div></div>
             </li>
           </ul>
         </div>
@@ -78,8 +79,8 @@ export function contactPage({ offices, practices }) {
           <span class="eyebrow">${office.type}</span>
           <h3>${escapeHtml(office.city)}</h3>
           <div class="contact-address">${icon('map-pin')}<address>${office.address}</address></div>
-          <div class="contact-office-phones">${icon('phone')}<div class="contact-phone-links">${phoneLinks(office.phones)}</div></div>
-          <a class="contact-directions" href="https://www.google.com/maps/search/?api=1&amp;query=${encodeURIComponent(office.map)}">View directions${icon('arrow-right')}<span class="sr-only"> to the ${escapeHtml(office.city)} office</span></a>
+          <div class="contact-office-phones">${icon('phone')}<div class="contact-phone-links">${phoneLinks(office.phones)}${office.whatsapp ? whatsappLink(office.whatsapp) : ''}</div></div>
+          <a class="contact-directions" href="${office.directions || `https://www.google.com/maps/search/?api=1&amp;query=${encodeURIComponent(office.map)}`}" target="_blank" rel="noopener">View directions${icon('arrow-right')}<span class="sr-only"> to the ${escapeHtml(office.city)} office</span></a>
           <iframe title="Map of ${escapeHtml(office.city)} office area" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=${encodeURIComponent(office.map)}&amp;output=embed"></iframe>
         </article>`).join('\n')}
       </div>
