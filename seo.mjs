@@ -16,7 +16,7 @@ export function seo(origin,route,title,description){
 function pageSeo(origin,route,title,description){
  const name='P S B & Associates LLP';
  const searchTitles={
-  '/':'CA Firm in Pune & Chhatrapati Sambhajinagar | PSB Associates LLP',
+  '/':'PSB & Associates LLP | Chartered Accountants',
   '/about/':'About PSB Associates LLP | Chartered Accountants',
   '/contact/':'CA Offices in Pune, Sambhajinagar & Hingoli | PSB Associates',
   '/services/':'Audit, GST, Tax & Accounting Services | PSB Associates LLP',
@@ -30,7 +30,7 @@ function pageSeo(origin,route,title,description){
  };
  const headline=searchTitles[route]||`${title} | ${name}`;
  const localDescriptions={
-  '/':'P S B & Associates LLP, Chartered Accountants in Pune, Chhatrapati Sambhajinagar and Hingoli. Audit, income tax, GST, accounting and business advisory since 2013.',
+  '/':'Audit, Tax, GST, Accounting & Business Advisory. Partner-led chartered accountancy practice since 2013.',
   '/services/audit-assurance/':'Audit and assurance services from PSB Associates LLP, Chartered Accountants with offices in Pune, Chhatrapati Sambhajinagar and Hingoli, Maharashtra.',
   '/services/taxation/':'Income tax, GST compliance and tax advisory from PSB Associates LLP. CA offices in Kondhwa Budruk, Pune, Chhatrapati Sambhajinagar and Hingoli.',
   '/services/accounting-outsourcing/':'Bookkeeping, payroll, MIS reporting and virtual CFO services from PSB Associates LLP, with offices in Pune, Chhatrapati Sambhajinagar and Hingoli.',
