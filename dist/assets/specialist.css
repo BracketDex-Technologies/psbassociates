@@ -61,6 +61,7 @@ header .brand small,.footer-identities .brand small{font-family:Manrope,Arial,sa
 @media(max-width:360px){header .brand>div,.footer-identities .brand>div{font-size:.85rem}header .brand small,.footer-identities .brand small{font-size:.6rem}}
 
 .footer-identities .brand{min-width:0;flex-shrink:1;color:#102b43}.footer-identities .brand small{color:#607487}
+.service-answers{margin-top:38px;padding-top:8px;border-top:1px solid var(--line)}.service-answers .service-office-note{margin-top:24px;font-size:.85rem;line-height:1.8}.service-office-note .text-link{margin-top:8px}
 
 /* A quiet, persistent contact invitation on the homepage. */
 .floating-whatsapp{position:fixed;right:28px;bottom:28px;z-index:30;display:grid;place-items:center;width:60px;height:60px;border-radius:50%;background:#25d366;box-shadow:0 6px 22px #102b4326;transition:background .2s,transform .2s}
