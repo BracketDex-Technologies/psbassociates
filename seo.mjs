@@ -7,6 +7,10 @@ export const faqs=[
 ];
 export const faqMarkup=`<section class="wrap faq-section"><span class="eyebrow">USEFUL ANSWERS</span><h2>About our practice.</h2>${faqs.map(([q,a])=>`<details><summary>${q}</summary><p>${a}</p></details>`).join('')}<a class="text-link" href="/contact/">Office addresses and contact details</a></section>`;
 export function seo(origin,route,title,description){
+ const verification=route==='/'?'<meta name="google-site-verification" content="Ubrs6quGv6rDhrCqP6ZlVnqqGe8q5ldt_Tpmxx4lxsM">':'';
+ return verification+pageSeo(origin,route,title,description);
+}
+function pageSeo(origin,route,title,description){
  const name='P S B & Associates LLP';
  const searchTitles={
   '/':'PSB Associates LLP | Chartered Accountants in Chhatrapati Sambhajinagar & Hingoli',
