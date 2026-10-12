@@ -75,7 +75,7 @@ export function contactPage({ offices, practices }) {
         <p>We are available at the following locations.</p>
       </div>
       <div class="contact-office-grid">
-        ${offices.map(office => `<article class="contact-office">
+        ${offices.map(office => `<article class="contact-office" id="office-${office.city.toLowerCase().replaceAll(' ', '-')}">
           <span class="eyebrow">${office.type}</span>
           <h3>${escapeHtml(office.city)}</h3>
           <div class="contact-address">${icon('map-pin')}<address>${office.address}</address></div>

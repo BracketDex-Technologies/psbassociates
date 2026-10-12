@@ -13,24 +13,40 @@ export function seo(origin,route,title,description){
 function pageSeo(origin,route,title,description){
  const name='P S B & Associates LLP';
  const searchTitles={
-  '/':'PSB Associates LLP | Chartered Accountants in Maharashtra',
+  '/':'CA Firm in Pune & Chhatrapati Sambhajinagar | PSB Associates LLP',
   '/about/':'About PSB Associates LLP | Chartered Accountants',
-  '/contact/':'Contact PSB Associates | CA Offices in Maharashtra',
+  '/contact/':'CA Offices in Pune, Sambhajinagar & Hingoli | PSB Associates',
   '/services/':'Audit, GST, Tax & Accounting Services | PSB Associates LLP',
-  '/services/audit-assurance/':'Audit & Assurance in Sambhajinagar & Hingoli | PSB Associates',
-  '/services/taxation/':'Income Tax & GST Advisory in Sambhajinagar | PSB Associates',
-  '/services/accounting-outsourcing/':'Accounting & Virtual CFO Services | PSB Associates LLP',
-  '/services/corporate-advisory/':'Business Setup & Corporate Advisory | PSB Associates LLP',
+  '/services/audit-assurance/':'Audit & Assurance in Pune & Sambhajinagar | PSB Associates',
+  '/services/taxation/':'Income Tax & GST CA in Pune & Sambhajinagar | PSB Associates',
+  '/services/accounting-outsourcing/':'Accounting & Virtual CFO in Pune | PSB Associates LLP',
+  '/services/corporate-advisory/':'Business Setup & Corporate Advisory in Pune | PSB Associates',
   '/services/gst-litigation-dispute-resolution/':'GST Notices, Appeals & Dispute Resolution | PSB Associates',
   '/services/ngo-public-trust-registrations/':'NGO & Public Trust Registration Advisory | PSB Associates',
   '/services/llp-partnership-structuring/':'LLP & Partnership Formation Advisory | PSB Associates LLP'
  };
  const headline=searchTitles[route]||`${title} | ${name}`;
- const firm={'@type':'AccountingService','@id':origin+'/#firm',name,alternateName:'PSB Associates',url:origin+'/',logo:origin+'/assets/brand-icon.png',image:origin+'/assets/social-preview.png',description:'Chartered accountants providing audit, income tax, GST, accounting and corporate advisory services since 2013.',foundingDate:'2013',telephone:'+91-9922412220',email:'office@psbassociates.in',address:{'@type':'PostalAddress',streetAddress:'Office No. 5 & 6, next to CIDCO Bus Stand, Jalgaon Road, N-1, CIDCO',addressLocality:'Chhatrapati Sambhajinagar',addressRegion:'Maharashtra',addressCountry:'IN'},areaServed:['Chhatrapati Sambhajinagar','Hingoli','Pune','India'],openingHoursSpecification:{'@type':'OpeningHoursSpecification',dayOfWeek:['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],opens:'10:30',closes:'19:30'},department:[{'@type':'AccountingService',name:name+' — Hingoli office',address:{'@type':'PostalAddress',streetAddress:'Shop No. 18 & 19, Municipal Shopping Complex, near Peoples Co-Op. Bank, Akola Road',addressLocality:'Hingoli',addressRegion:'Maharashtra',postalCode:'431513',addressCountry:'IN'},telephone:'+91-9403806446'},{'@type':'AccountingService',name:name+' — Pune office',address:{'@type':'PostalAddress',streetAddress:'Office No. 229, Ultima Business Centre, Near Shree Shantinagar Society, Kondhwa Budruk',addressLocality:'Pune',addressRegion:'Maharashtra',postalCode:'411048',addressCountry:'IN'}}]};
+ const localDescriptions={
+  '/':'P S B & Associates LLP, Chartered Accountants in Pune, Chhatrapati Sambhajinagar and Hingoli. Audit, income tax, GST, accounting and business advisory since 2013.',
+  '/services/audit-assurance/':'Audit and assurance services from PSB Associates LLP, Chartered Accountants with offices in Pune, Chhatrapati Sambhajinagar and Hingoli, Maharashtra.',
+  '/services/taxation/':'Income tax, GST compliance and tax advisory from PSB Associates LLP. CA offices in Kondhwa Budruk, Pune, Chhatrapati Sambhajinagar and Hingoli.',
+  '/services/accounting-outsourcing/':'Bookkeeping, payroll, MIS reporting and virtual CFO services from PSB Associates LLP, with offices in Pune, Chhatrapati Sambhajinagar and Hingoli.',
+  '/services/corporate-advisory/':'Company formation, business setup and corporate advisory from PSB Associates LLP, Chartered Accountants in Pune, Chhatrapati Sambhajinagar and Hingoli.'
+ };
+ description=localDescriptions[route]||description;
+ const firm={'@type':'AccountingService','@id':origin+'/#firm',name,alternateName:'PSB Associates',url:origin+'/',logo:origin+'/assets/brand-icon.png',image:origin+'/assets/social-preview-header.png',description:'Chartered accountants providing audit, income tax, GST, accounting and corporate advisory services since 2013.',foundingDate:'2013',telephone:'+91-9922412220',email:'office@psbassociates.in',address:{'@type':'PostalAddress',streetAddress:'Office No. 5 & 6, next to CIDCO Bus Stand, Jalgaon Road, N-1, CIDCO',addressLocality:'Chhatrapati Sambhajinagar',addressRegion:'Maharashtra',addressCountry:'IN'},areaServed:['Chhatrapati Sambhajinagar','Hingoli','Pune','India'],openingHoursSpecification:{'@type':'OpeningHoursSpecification',dayOfWeek:['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],opens:'10:30',closes:'19:30'},department:[{'@type':'AccountingService',name:name+' — Hingoli office',address:{'@type':'PostalAddress',streetAddress:'Shop No. 18 & 19, Municipal Shopping Complex, near Peoples Co-Op. Bank, Akola Road',addressLocality:'Hingoli',addressRegion:'Maharashtra',postalCode:'431513',addressCountry:'IN'},telephone:'+91-9403806446'},{'@type':'AccountingService',name:name+' — Pune office',address:{'@type':'PostalAddress',streetAddress:'Office No. 229, Ultima Business Centre, Near Shree Shantinagar Society, Kondhwa Budruk',addressLocality:'Pune',addressRegion:'Maharashtra',postalCode:'411048',addressCountry:'IN'}}]};
  firm.address.streetAddress='Office No. 5 & 6, Mehra Chambers, next to CIDCO Bus Stand, Jalgaon Road, N-1, CIDCO';
  firm.alternateName=['PSB Associates','PSB Associates LLP','P S B & Associates LLP'];
+ for(const office of firm.department){
+  const city=office.address.addressLocality;
+  office['@id']=origin+'/contact/#office-'+city.toLowerCase();
+  office.url=origin+'/contact/#office-'+city.toLowerCase();
+  office.parentOrganization={'@id':firm['@id']};
+  office.openingHoursSpecification=firm.openingHoursSpecification;
+  if(city==='Pune')office.hasMap='https://maps.app.goo.gl/kXgueiyf7dEYAdwx8?g_st=iw';
+ }
  const graph=[firm,{'@type':'WebSite','@id':origin+'/#website',name,alternateName:'PSB Associates LLP',url:origin+'/',publisher:{'@id':firm['@id']}},{'@type':'WebPage','@id':origin+route+'#webpage',url:origin+route,name:headline,description,inLanguage:'en-IN',isPartOf:{'@id':origin+'/#website'},about:{'@id':firm['@id']}}];
  if(route!=='/')graph.push({'@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'Home',item:origin+'/'},{'@type':'ListItem',position:2,name:title,item:origin+route}]});
  if(route.startsWith('/services/')&&route!=='/services/')graph.push({'@type':'Service',name:title,description,url:origin+route,provider:{'@id':firm['@id']},areaServed:{'@type':'Country',name:'India'}});
- return `<title>${headline}</title><meta name="description" content="${description}"><link rel="canonical" href="${origin}${route}"><meta name="robots" content="${['/thank-you/','/404.html'].includes(route)?'noindex, follow':'index, follow, max-image-preview:large'}"><meta property="og:site_name" content="${name}"><meta property="og:title" content="${headline}"><meta property="og:description" content="${description}"><meta property="og:type" content="website"><meta property="og:url" content="${origin}${route}"><meta property="og:image" content="${origin}/assets/social-preview.png"><meta property="og:image:secure_url" content="${origin}/assets/social-preview.png"><meta property="og:image:type" content="image/png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="PSB logo — P S B & Associates LLP, Chartered Accountants"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${headline}"><meta name="twitter:description" content="${description}"><meta name="twitter:image" content="${origin}/assets/social-preview.png"><link rel="apple-touch-icon" href="/assets/brand-icon.png"><script type="application/ld+json">${JSON.stringify({'@context':'https://schema.org','@graph':graph}).replaceAll('<','\\u003c')}</script>`;
+ return `<title>${headline}</title><meta name="description" content="${description}"><link rel="canonical" href="${origin}${route}"><meta name="robots" content="${['/thank-you/','/404.html'].includes(route)?'noindex, follow':'index, follow, max-image-preview:large'}"><meta property="og:site_name" content="${name}"><meta property="og:title" content="${headline}"><meta property="og:description" content="${description}"><meta property="og:type" content="website"><meta property="og:url" content="${origin}${route}"><meta property="og:image" content="${origin}/assets/social-preview-header.png"><meta property="og:image:secure_url" content="${origin}/assets/social-preview-header.png"><meta property="og:image:type" content="image/png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="CA India logo and PSB &amp; Associates LLP — Chartered Accountants, matching the website header"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${headline}"><meta name="twitter:description" content="${description}"><meta name="twitter:image" content="${origin}/assets/social-preview-header.png"><link rel="apple-touch-icon" href="/assets/brand-icon.png"><script type="application/ld+json">${JSON.stringify({'@context':'https://schema.org','@graph':graph}).replaceAll('<','\\u003c')}</script>`;
 }
