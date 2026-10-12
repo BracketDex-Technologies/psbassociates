@@ -50,7 +50,7 @@ function pageSeo(origin,route,title,description){
   office.openingHoursSpecification=firm.openingHoursSpecification;
   if(city==='Pune'){
    office.hasMap='https://maps.app.goo.gl/kXgueiyf7dEYAdwx8?g_st=iw';
-   office.telephone='+91-9422868050';
+   office.telephone='+91-9922412220';
   }
  }
  const graph=[firm,{'@type':'WebSite','@id':origin+'/#website',name,alternateName:'PSB Associates LLP',url:origin+'/',publisher:{'@id':firm['@id']}},{'@type':'WebPage','@id':origin+route+'#webpage',url:origin+route,name:headline,description,inLanguage:'en-IN',isPartOf:{'@id':origin+'/#website'},about:{'@id':firm['@id']}}];
