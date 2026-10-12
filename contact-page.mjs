@@ -79,7 +79,7 @@ export function contactPage({ offices, practices }) {
           <span class="eyebrow">${office.type}</span>
           <h3>${escapeHtml(office.city)}</h3>
           <div class="contact-address">${icon('map-pin')}<address>${office.address}</address></div>
-          <div class="contact-office-phones">${icon('phone')}<div class="contact-phone-links">${phoneLinks(office.phones)}${office.whatsapp ? whatsappLink(office.whatsapp) : ''}</div></div>
+          ${office.phones.length ? `<div class="contact-office-phones">${icon('phone')}<div class="contact-phone-links">${phoneLinks(office.phones)}${office.whatsapp ? whatsappLink(office.whatsapp) : ''}</div></div>` : ''}
           <a class="contact-directions" href="${office.directions || `https://www.google.com/maps/search/?api=1&amp;query=${encodeURIComponent(office.map)}`}" target="_blank" rel="noopener">View directions${icon('arrow-right')}<span class="sr-only"> to the ${escapeHtml(office.city)} office</span></a>
           <iframe title="Map of ${escapeHtml(office.city)} office area" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=${encodeURIComponent(office.map)}&amp;output=embed"></iframe>
         </article>`).join('\n')}

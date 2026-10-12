@@ -61,3 +61,12 @@ header .brand small,.footer-identities .brand small{font-family:Manrope,Arial,sa
 @media(max-width:360px){header .brand>div,.footer-identities .brand>div{font-size:.85rem}header .brand small,.footer-identities .brand small{font-size:.6rem}}
 
 .footer-identities .brand{min-width:0;flex-shrink:1;color:#102b43}.footer-identities .brand small{color:#607487}
+
+/* A quiet, persistent contact invitation on the homepage. */
+.ca-whatsapp{position:fixed;right:28px;bottom:28px;z-index:30;display:flex;align-items:center;gap:13px;padding:12px 18px 12px 12px;border:1px solid #c8aa7b;border-radius:50px;background:#102b43;color:#fff;box-shadow:0 8px 28px #102b4326;transition:background .2s,transform .2s}
+.ca-whatsapp:hover{background:#1d405a;transform:translateY(-2px)}
+.ca-whatsapp-avatar{position:relative;display:grid;place-items:center;flex:0 0 auto;width:46px;height:46px;border-radius:50%;background:#f2eadc;font-size:27px;line-height:1}
+.ca-whatsapp-badge{position:absolute;right:-3px;bottom:-1px;border:2px solid #102b43;border-radius:5px;padding:3px 4px;background:#dfbd80;color:#102b43;font-size:9px;font-weight:700;letter-spacing:.02em}
+.ca-whatsapp-copy{display:flex;flex-direction:column;line-height:1.4}.ca-whatsapp-copy strong{font-size:.9rem;font-weight:600}.ca-whatsapp-copy small{font-size:.7rem;color:#dfbd80;margin-top:3px}.ca-whatsapp>img{flex:0 0 auto;width:24px;height:24px;margin-left:5px}
+@media(max-width:650px){.ca-whatsapp{right:16px;bottom:max(16px,env(safe-area-inset-bottom));gap:10px;padding:9px 14px 9px 9px}.ca-whatsapp-avatar{width:39px;height:39px;font-size:24px}.ca-whatsapp-copy strong{font-size:.82rem}.ca-whatsapp-copy small{font-size:.65rem}.ca-whatsapp>img{width:22px;height:22px}}
+@media(prefers-reduced-motion:reduce){.ca-whatsapp{transition:none}}

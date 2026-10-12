@@ -57,10 +57,10 @@
 .contact-details .contact-office-label { margin: 0 0 6px; font-size: 1rem; }
 .contact-phone-links { display: flex; flex-wrap: wrap; gap: 6px 18px; color: var(--navy); }
 .contact-details .contact-phone-links { font-size: 1.05rem; }
-.contact-phone-links a + a { border-left: 1px solid #c8cdd0; padding-left: 18px; }
-.whatsapp-link { display: inline-grid; place-items: center; width: 30px; height: 30px; margin-left: 2px; border-radius: 50%; background: #25d366; color: #fff; vertical-align: middle; }
-.whatsapp-link:hover { background: #1da851; color: #fff; }
-.whatsapp-icon { width: 17px; height: 17px; background: currentColor; mask: url('/assets/icons/whatsapp.svg') center / contain no-repeat; }
+.contact-phone-links a[href^='tel:'] + a[href^='tel:'] { border-left: 1px solid #c8cdd0; padding-left: 18px; }
+.contact-phone-links .whatsapp-link { display: inline-grid; place-items: center; flex: 0 0 36px; width: 36px; height: 36px; padding: 0; border: 1px solid #c8aa7b; margin-left: 2px; border-radius: 50%; background: #102b43; color: #fff; vertical-align: middle; }
+.contact-phone-links .whatsapp-link:hover { background: #1d405a; color: #fff; }
+.whatsapp-icon { display: block; width: 21px; height: 21px; background: currentColor; mask: url('/assets/icons/whatsapp.svg') center / contain no-repeat; }
 .contact-details a:hover, .contact-office a:hover { color: #805c29; text-decoration: underline; text-underline-offset: 4px; }
 
 .contact-form { min-width: 0; margin: 0; padding: 32px 36px 26px; background: #fff; border: 1px solid #dfe5e9; border-radius: 7px; }
@@ -128,16 +128,16 @@
 .contact-offices-heading .eyebrow { margin-bottom: 22px; }
 .contact-offices-heading h2 { font-size: clamp(2.2rem, 4.25vw, 3.8rem); font-weight: 500; letter-spacing: -.05em; }
 .contact-offices-heading p { margin-top: 10px; font-size: 1.1rem; }
-.contact-office-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
-.contact-office { min-width: 0; padding-right: 42px; }
-.contact-office + .contact-office { padding: 0 0 0 42px; border-left: 1px solid var(--contact-line); }
+.contact-office-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.contact-office { min-width: 0; display: flex; flex-direction: column; align-items: flex-start; padding: 0; }
+.contact-office + .contact-office { padding: 0 0 0 24px; border-left: 1px solid var(--contact-line); }
 .contact-office > .eyebrow { font-size: .75rem; letter-spacing: .15em; margin-bottom: 12px; }
-.contact-office h3 { font-size: clamp(1.3rem, 2.05vw, 1.9rem); letter-spacing: -.045em; margin-bottom: 15px; text-wrap: initial; }
+.contact-office h3 { font-size: clamp(1.2rem, 1.65vw, 1.6rem); letter-spacing: -.045em; margin-bottom: 15px; text-wrap: initial; }
 .contact-address, .contact-office-phones { display: flex; gap: 16px; align-items: flex-start; }
 .contact-address > .contact-icon, .contact-office-phones > .contact-icon { width: 21px; height: 21px; color: var(--contact-gold); margin-top: 3px; }
 .contact-address address { font-style: normal; font-size: .9375rem; line-height: 1.7; color: var(--muted); }
 .contact-office-phones { margin-top: 18px; font-size: .9375rem; }
-.contact-directions { display: inline-flex; align-items: center; gap: 22px; border-bottom: 1px solid #b48a4d; padding-bottom: 4px; margin-top: 18px; font-size: .9375rem; font-weight: 500; }
+.contact-directions { display: inline-flex; align-items: center; gap: 16px; border-bottom: 1px solid #b48a4d; padding-bottom: 4px; padding-top: 18px; margin-top: auto; font-size: .9375rem; font-weight: 500; }
 .contact-directions .contact-icon { width: 18px; height: 18px; }
 .contact-office iframe { display: block; width: 100%; height: 218px; border: 1px solid #dfe5e9; border-radius: 6px; background: #f2f6f9; margin-top: 20px; }
 
@@ -148,9 +148,9 @@
   .contact-icon-badge { width: 48px; height: 48px; }
   .contact-lead { font-size: 1rem; }
   .contact-form .contact-service-option { padding: 11px; gap: 9px; }
-  .contact-office { padding-right: 28px; }
-  .contact-office + .contact-office { padding-left: 28px; }
-  .contact-phone-links a + a { border: 0; padding-left: 0; }
+  .contact-office-grid { gap: 18px; }
+  .contact-office + .contact-office { padding-left: 18px; }
+  .contact-phone-links a[href^='tel:'] + a[href^='tel:'] { border: 0; padding-left: 0; }
 }
 
 @media (max-width: 900px) {
@@ -166,7 +166,9 @@
   .contact-details .contact-hours, .contact-details .contact-phone-links { font-size: .9375rem; }
   .contact-form { padding: 32px; }
   .contact-form .contact-service-option { font-size: .9375rem; }
-  .contact-office h3 { min-height: 2.5em; }
+  .contact-office-grid { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .contact-office + .contact-office { padding: 28px 0 0; border-left: 0; border-top: 1px solid var(--contact-line); }
+  .contact-office h3 { min-height: 0; }
 }
 
 @media (max-width: 600px) {
