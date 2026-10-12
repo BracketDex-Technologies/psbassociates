@@ -25,13 +25,13 @@ try {
  // WhatsApp's compact card needs a square composition with readable branding.
  const thumbnail = await browser.newPage({viewport:{width:600,height:600},deviceScaleFactor:1});
  await thumbnail.setContent(`<!doctype html><html><head><link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400&family=Manrope:wght@500&display=swap" rel="stylesheet"><style>
- *{box-sizing:border-box}body{margin:0;width:600px;height:600px;background:#fcfdff;color:#102b43;display:flex;flex-direction:column;align-items:center;justify-content:center;border-top:6px solid #dfbd80;border-bottom:6px solid #dfbd80;text-align:center}
- img{display:block;width:210px;height:auto;margin-bottom:18px}.name{font:400 112px/1.15 'Libre Baskerville',Georgia,serif;letter-spacing:-.035em}.firm{font:400 46px/1.3 'Libre Baskerville',Georgia,serif;letter-spacing:-.035em;margin-top:10px}.subtitle{font:500 25px/1.5 Manrope,Arial,sans-serif;color:#607487;margin-top:16px}
- </style></head><body><img src="data:image/png;base64,${logo}" alt="CA India logo"><div class="name">PSB &amp;</div><div class="firm">Associates LLP</div><div class="subtitle">Chartered Accountants</div></body></html>`,{waitUntil:'networkidle'});
+ *{box-sizing:border-box}body{margin:0;width:600px;height:600px;background:#fcfdff;color:#102b43;display:flex;align-items:center;justify-content:center;border-top:6px solid #dfbd80;border-bottom:6px solid #dfbd80}
+ .thumbnail-identity{display:flex;align-items:center;gap:16px;width:560px}.thumbnail-mark{flex:0 0 170px}.thumbnail-mark img{display:block;width:170px;height:auto}.thumbnail-brand{min-width:0;flex:1;border-left:1px solid #102b4326;padding-left:16px}.name{font:400 108px/1.15 'Libre Baskerville',Georgia,serif;letter-spacing:-.035em;white-space:nowrap}.firm{font:400 40px/1.3 'Libre Baskerville',Georgia,serif;letter-spacing:-.035em;margin-top:10px;white-space:nowrap}.subtitle{font:500 23px/1.5 Manrope,Arial,sans-serif;color:#607487;margin-top:16px;white-space:nowrap}
+ </style></head><body><div class="thumbnail-identity"><div class="thumbnail-mark"><img src="data:image/png;base64,${logo}" alt="CA India logo"></div><div class="thumbnail-brand"><div class="name">PSB &amp;</div><div class="firm">Associates LLP</div><div class="subtitle">Chartered Accountants</div></div></div></body></html>`,{waitUntil:'networkidle'});
  await thumbnail.evaluate(async()=>{await document.fonts.ready;await Promise.all([...document.images].map(img=>img.decode()));});
- const thumbnailFontsLoaded=await thumbnail.evaluate(()=>document.fonts.check('112px "Libre Baskerville"')&&document.fonts.check('25px Manrope'));
+ const thumbnailFontsLoaded=await thumbnail.evaluate(()=>document.fonts.check('108px "Libre Baskerville"')&&document.fonts.check('23px Manrope'));
  if(!thumbnailFontsLoaded)throw new Error('Thumbnail fonts did not load.');
- await thumbnail.screenshot({path:'dist/assets/social-preview-whatsapp-v3.png'});
+ await thumbnail.screenshot({path:'dist/assets/social-preview-whatsapp-v4.png'});
  if(process.argv[3]){
   await thumbnail.setViewportSize({width:96,height:96});
   await thumbnail.evaluate(()=>{document.body.style.transform='scale(.16)';document.body.style.transformOrigin='top left';});
