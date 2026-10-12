@@ -8,23 +8,18 @@ const { chromium } = require('playwright');
 const logo = fs.readFileSync('dist/assets/ca-india-logo.png').toString('base64');
 const browser = await chromium.launch({ channel: 'chrome', headless: true });
 try {
- const page = await browser.newPage({ viewport: { width: 1200, height: 1200 }, deviceScaleFactor: 1 });
+ const page = await browser.newPage({ viewport: { width: 557, height: 105 }, deviceScaleFactor: 8 });
  await page.setContent(`<!doctype html><html><head><link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400&family=Manrope:wght@500&display=swap" rel="stylesheet"><style>
- *{box-sizing:border-box}body{margin:0;background:#fcfdff;color:#102b43;width:1200px;height:1200px;display:grid;place-items:center;border-top:12px solid #dfbd80;border-bottom:12px solid #dfbd80}
- .identity{display:flex;flex-direction:column;align-items:center;gap:54px;width:100%;padding:70px;text-align:center}
- .mark{display:flex;justify-content:center}.mark img{width:420px;height:auto}
- .brand{width:100%}
- .name{font:400 160px/1.2 'Libre Baskerville',Georgia,serif;letter-spacing:-.035em}.name span{display:block;font-size:110px;margin-top:14px;white-space:nowrap}
- .subtitle{font:500 54px/1.5 Manrope,Arial,sans-serif;letter-spacing:.01em;color:#607487;margin-top:34px}
- </style></head><body><div class="identity"><div class="mark"><img src="data:image/png;base64,${logo}" alt="CA India logo"></div><div class="brand"><div class="name">PSB &amp;<span>Associates LLP</span></div><div class="subtitle">Chartered Accountants</div></div></div></body></html>`, { waitUntil: 'networkidle' });
+ *{box-sizing:border-box}body{margin:0;background:#fcfdff;color:#102b43;width:557px;height:105px;border-bottom:14px solid #f0eee9}
+ .identity{position:absolute;left:71px;top:17px;height:54px;display:flex;align-items:center;gap:18px}
+ .mark{width:70px;height:54px;display:flex;align-items:center;justify-content:center}.mark img{width:56px;height:auto}
+ .brand{height:54px;border-left:1px solid #102b4326;padding-left:18px}
+ .name{font:400 21.6px/1.35 'Libre Baskerville',Georgia,serif;letter-spacing:-.035em;white-space:nowrap}
+ .subtitle{font:500 12.16px/1.5 Manrope,Arial,sans-serif;letter-spacing:.045em;color:#607487;margin-top:6px}
+ </style></head><body><div class="identity"><div class="mark"><img src="data:image/png;base64,${logo}" alt="CA India logo"></div><div class="brand"><div class="name">PSB &amp; Associates LLP</div><div class="subtitle">Chartered Accountants</div></div></div></body></html>`, { waitUntil: 'networkidle' });
  await page.evaluate(async () => { await document.fonts.ready; await Promise.all([...document.images].map(img => img.decode())); });
- const fontsLoaded = await page.evaluate(() => document.fonts.check('160px "Libre Baskerville"') && document.fonts.check('54px Manrope'));
+ const fontsLoaded = await page.evaluate(() => document.fonts.check('21.6px "Libre Baskerville"') && document.fonts.check('12.16px Manrope'));
  if (!fontsLoaded) throw new Error('Header fonts did not load; refusing to generate a mismatched preview.');
- await page.screenshot({ path: 'dist/assets/social-preview-square.png' });
- if (process.argv[3]) {
-  await page.setViewportSize({ width: 96, height: 96 });
-  await page.evaluate(() => { document.body.style.transform='scale(.08)'; document.body.style.transformOrigin='top left'; });
-  await page.screenshot({ path: process.argv[3] });
- }
- console.log('Created square share image with enlarged header branding: 1200 × 1200.');
+ await page.screenshot({ path: 'dist/assets/social-preview-header-hd.png' });
+ console.log('Created horizontal header share image: 4456 × 840 (8× rendering).');
 } finally { await browser.close(); }
