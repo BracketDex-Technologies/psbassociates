@@ -15,7 +15,7 @@ export function contactPage({ offices, practices }) {
         <div class="contact-introduction">
           <span class="eyebrow contact-eyebrow">Contact &amp; offices</span>
           <h1 id="contact-title">A conversation <br>starts with <br>understanding.</h1>
-          <p class="contact-lead">Tell us what you need help with and our team will get back to you from one of our offices in Maharashtra.</p>
+          <p class="contact-lead">Tell us what you need help with. Our team works with clients in India and abroad and will get back to you to discuss your requirements.</p>
 
           <ul class="contact-details">
             <li>
