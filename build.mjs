@@ -5,7 +5,7 @@ import { seo, faqMarkup } from './seo.mjs';
 import { contactPage } from './contact-page.mjs';
 import { insights, insightCards } from './insights.mjs';
 const assetVersion=createHash('sha256').update(['style.css','modern.css','home.css','integrations.css','motion.css','contact.css','specialist.css','gsap.min.js','site.js','announcements.js','contact.js','analytics.js'].map(file=>fs.readFileSync('dist/assets/'+file,'utf8')).join('\n')).digest('hex').slice(0,12);
-const origin=new URL(process.env.SITE_URL || process.argv.find(x=>x.startsWith('--origin='))?.slice(9) || 'https://psb-associates-redesign.choudharidarshan556.chatgpt.site').origin;
+const origin=new URL(process.argv.find(x=>x.startsWith('--origin='))?.slice(9) || process.env.SITE_URL || 'https://www.psbassociates.in').origin;
 const gaId=/^G-[A-Z0-9]+$/.test(process.env.GA_MEASUREMENT_ID||'')?process.env.GA_MEASUREMENT_ID:'';
 const escapeHtml=value=>String(value).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
 const approvedTestimonials=JSON.parse(fs.readFileSync('data/testimonials.json','utf8')).filter(t=>t.approved===true&&t.quote&&t.name);
