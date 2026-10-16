@@ -1,12 +1,12 @@
 // Shared sector names and descriptions for the website and structured data.
 export const industries = [
- {name: 'Software & Information Technology', description: 'Accounting, taxation and assurance for software and technology businesses, including corporate and multinational operations.'},
- {name: 'Engineering', description: 'Financial reporting, audit and advisory for engineering businesses and their operating requirements.'},
- {name: 'Travel & Hospitality', description: 'Accounting, payroll, taxation and business advisory for travel and hospitality operations.'},
- {name: 'Education', description: 'Assurance, financial reporting and compliance support for educational institutions.'},
- {name: 'Banking & Financial Services', description: 'Audit, taxation and financial advisory for banking and financial institutions.'},
- {name: 'NGOs & Public Trusts', description: 'Trust audits, accounting and compliance support for nongovernment organisations and public trusts.'},
- {name: 'Hospital & Healthcare', description: 'Accounting, payroll, taxation, audit and financial reporting support for hospitals and healthcare organisations.'},
- {name: 'Maritime & Transportation', description: 'Accounting, taxation, assurance and business advisory for maritime, logistics and transportation businesses.'},
- {name: 'Builders & Developers', description: 'Accounting, taxation, audit and financial advisory for builders, developers and real estate businesses.'}
+ {name: 'Software & Information Technology', description: 'Statutory audit, transfer pricing, and comprehensive taxation for software and technology enterprises. We guide startups, product firms, and IT service exporters on SEZ/STPI compliances, cross-border remittance certifications (15CA/15CB), and scalable financial systems.'},
+ {name: 'Engineering', description: 'Robust financial reporting, internal control reviews, and statutory audits tailored to manufacturing and engineering units. Our team assists with inventory valuation, capital budgeting, GST classification on contract manufacturing, and working capital optimization.'},
+ {name: 'Travel & Hospitality', description: 'Accounting, payroll administration, and indirect tax compliance designed for hotels, travel agencies, and hospitality operators. We support management reporting, revenue reconciliation across booking channels, input tax credit optimization, and service compliance.'},
+ {name: 'Education', description: 'Comprehensive assurance, statutory compliance, and trust audit services for schools, colleges, and educational institutions. We advise on fee regulation reporting, Section 80G and Section 12AB tax exemptions, endowment fund management, and internal governance frameworks.'},
+ {name: 'Banking & Financial Services', description: 'Concurrent audits, statutory assurance, and tax advisory for cooperative banks, NBFCs, and financial intermediaries. We provide portfolio review support, compliance with Reserve Bank of India (RBI) prudential norms, and credit risk assessment procedures.'},
+ {name: 'NGOs & Public Trusts', description: 'Specialized advisory for charitable trusts, foundations, and nonprofit organisations. We coordinate income-tax registrations under Sections 332 and 354, CSR-1 implementation filings, Form 10B/10BB trust audits, donor reporting certifications, and statutory compliances.'},
+ {name: 'Hospital & Healthcare', description: 'Structured accounting, payroll, and statutory tax compliance for hospitals, multispecialty clinics, and medical diagnostic centres. Our practice covers hospital billing audits, pharmacy inventory scrutiny, vendor reconciliations, and healthcare service GST reviews.'},
+ {name: 'Maritime & Transportation', description: 'Financial reporting, multi-state GST compliance, and operational accounting for logistics, freight forwarding, and transport operators. We handle fleet lease accounting, freight tax reconciliations, e-way bill compliance structures, and cross-border documentation.'},
+ {name: 'Builders & Developers', description: 'Real estate accounting, RERA financial reporting compliance, and project-wise cost accounting for builders and property developers. We assist with joint development agreement (JDA) tax structuring, customer advance reconciliations, GST ITC apportionment, and project finance reporting.'}
 ];

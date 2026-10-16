@@ -162,3 +162,12 @@ header a:focus-visible,header .menu-toggle:focus-visible{outline-color:#886530}
 @media(max-width:900px){.partner-profile{grid-template-columns:300px 1fr;gap:36px;padding:36px 0 60px}}
 @media(max-width:650px){.partner-profile{grid-template-columns:1fr;gap:24px;padding:24px 0 48px}.partner-profile .portrait{max-width:320px;margin:0 auto}}
 
+/* Expanded descriptions & career cards */
+.practice-overview{font-size:1.05rem;line-height:1.75;color:var(--muted);margin-top:16px;margin-bottom:32px}
+.career-roles{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:24px 0 16px}
+.career-role-item{background:#f8fafc;border:1px solid var(--line);border-radius:6px;padding:16px 18px}
+.career-role-item h3{font-size:1rem;color:var(--navy);margin-bottom:6px;font-weight:600}
+.career-role-item p{font-size:.875rem;line-height:1.6;color:var(--muted);margin:0}
+@media(max-width:650px){.career-roles{grid-template-columns:1fr;gap:12px;margin:16px 0}}
+
+
