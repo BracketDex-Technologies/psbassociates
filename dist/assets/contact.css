@@ -271,3 +271,28 @@
 
 :is(.page-contact,.page-careers) .contact-introduction h1{font-size:var(--page-title-size);line-height:1.12}
 @media(max-width:650px){:is(.page-contact,.page-careers) .contact-introduction h1{font-size:clamp(2.2rem,9vw,2.8rem)}}
+
+.office-map{width:100%;padding:0;border:0}
+.office-map>summary,.optional-field>summary{display:none}
+.optional-field{padding:0;border:0;margin-top:10px}
+@media(max-width:650px){
+ .office-map>summary,.optional-field>summary{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px;padding:8px 0;font-size:.875rem;line-height:1.5;color:var(--navy);list-style:none}
+ .office-map>summary::-webkit-details-marker,.optional-field>summary::-webkit-details-marker{display:none}
+ .office-map>summary::after,.optional-field>summary::after{content:'+';color:#8c6938;font-size:1.15rem}
+ .office-map[open]>summary::after,.optional-field[open]>summary::after{content:'−'}
+ .office-map{margin-top:8px}
+ .contact-office .office-map iframe{margin-top:4px}
+ .contact-directions{min-height:44px;padding-top:12px}
+ .page-careers .optional-field{margin-top:8px}
+ .page-careers .optional-field .contact-message{font-size:0}
+ .page-careers .optional-field .optional-label{display:none}
+ .page-careers .optional-field textarea{font-size:1rem;margin-top:0}
+ .page-careers .career-application-copy .career-opportunity{margin-top:20px;padding-top:18px}
+ .page-careers .career-opportunity h2{font-size:1.6rem}
+ .page-careers .career-opportunity p{font-size:1rem;line-height:1.6}
+ .page-careers .career-opportunity .text-link{min-height:44px}
+ .page-contact .contact-details{margin-top:16px}
+ .page-contact .contact-details li{padding-top:12px;padding-bottom:12px}
+ .contact-phone-item{min-height:44px}
+ .contact-phone-links .whatsapp-link{width:44px;height:44px;flex-basis:44px}
+}

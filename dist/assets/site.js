@@ -1,10 +1,40 @@
 const toggle=document.querySelector('.menu-toggle');
 const menu=document.querySelector('#navigation');
-toggle?.addEventListener('click',()=>{const open=toggle.getAttribute('aria-expanded')!=='true';toggle.setAttribute('aria-expanded',String(open));menu.classList.toggle('open',open)});
-menu?.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{menu.classList.remove('open');toggle?.setAttribute('aria-expanded','false')}));
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){menu?.classList.remove('open');toggle?.setAttribute('aria-expanded','false')}});
+const setMenuOpen=open=>{
+ toggle?.setAttribute('aria-expanded',String(open));
+ menu?.classList.toggle('open',open);
+};
+toggle?.addEventListener('click',()=>setMenuOpen(toggle.getAttribute('aria-expanded')!=='true'));
+menu?.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>setMenuOpen(false)));
+document.addEventListener('keydown',e=>{
+ if(e.key==='Escape'&&toggle?.getAttribute('aria-expanded')==='true'){setMenuOpen(false);toggle.focus();}
+});
+document.addEventListener('click',e=>{
+ if(toggle?.getAttribute('aria-expanded')==='true'&&!e.target.closest('header'))setMenuOpen(false);
+});
+document.addEventListener('focusin',e=>{
+ if(toggle?.getAttribute('aria-expanded')==='true'&&!e.target.closest('header'))setMenuOpen(false);
+});
+window.matchMedia('(max-width: 1100px)').addEventListener('change',()=>setMenuOpen(false));
 document.querySelectorAll('[data-year]').forEach(el=>el.textContent=new Date().getFullYear());
 const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
+// Keep supporting detail available while shortening the initial phone layout.
+const phoneLayout=window.matchMedia('(max-width: 650px)');
+const compactLaptop=window.matchMedia('(min-width: 901px) and (max-height: 800px)');
+const syncPhoneDetails=()=>{
+ document.querySelectorAll('[data-responsive-details]').forEach(details=>{
+  const collapsible=phoneLayout.matches||(details.matches('.optional-field')&&compactLaptop.matches);
+  details.open=!collapsible;
+  details.querySelector('summary')?.setAttribute('tabindex',collapsible?'0':'-1');
+ });
+ document.querySelectorAll('[data-updates].compact [data-feed-list]').forEach(list=>{
+  if(phoneLayout.matches)list.removeAttribute('tabindex');else list.setAttribute('tabindex','0');
+  list.setAttribute('aria-label',phoneLayout.matches?'Latest official announcements':'Scrollable official announcements');
+ });
+};
+phoneLayout.addEventListener('change',syncPhoneDetails);
+compactLaptop.addEventListener('change',syncPhoneDetails);
+syncPhoneDetails();
 // Replay only after leaving and re-entering the viewport, in either direction.
 // Content stays visible before observation, without GSAP, or with reduced motion.
 document.querySelectorAll('[data-updates].compact .updates-header>div').forEach(heading=>{
@@ -16,6 +46,7 @@ document.querySelectorAll('[data-updates].compact .updates-header>div').forEach(
 if(window.gsap&&'IntersectionObserver' in window){
  const gsap=window.gsap;
  gsap.matchMedia().add('(prefers-reduced-motion: no-preference)',()=>{
+  const phoneMotion=phoneLayout.matches;
   const motions=new Map();
   const active=new Set();
   const register=(element,timeline,loop=null)=>{
@@ -26,12 +57,17 @@ if(window.gsap&&'IntersectionObserver' in window){
    const card=element.matches('.person,.practice-card,.specialist-card,.resource,.sector-disclosure');
    const index=card?[...element.parentElement.children].indexOf(element)%3:0;
    const timeline=gsap.timeline({paused:true}).fromTo(element,
-    {y:card?18:14,opacity:.35},
-    {y:0,opacity:1,duration:.6,delay:index*.07,ease:'power2.out',immediateRender:false,clearProps:'transform,opacity'});
+    {y:phoneMotion?8:card?18:14,opacity:phoneMotion ? .7 : .35},
+    {y:0,opacity:1,duration:phoneMotion ? .35 : .6,delay:index*(phoneMotion ? .04 : .07),ease:'power2.out',immediateRender:false,clearProps:'transform,opacity'});
    register(element,timeline);
   });
   document.querySelectorAll('[data-animated-stats]').forEach(strip=>{
    const timeline=gsap.timeline({paused:true});
+   if(phoneMotion){
+    timeline.fromTo(strip,{opacity:.7},{opacity:1,duration:.35,immediateRender:false,clearProps:'opacity'});
+    register(strip,timeline);
+    return;
+   }
    strip.querySelectorAll('strong[data-count]').forEach((number,index)=>{
     const target=Number(number.dataset.count),counter={value:0};
     const format=value=>String(Math.round(value)).padStart(Number(number.dataset.pad||0),'0')+(number.dataset.suffix||'');
@@ -44,9 +80,9 @@ if(window.gsap&&'IntersectionObserver' in window){
   });
   document.querySelectorAll('[data-updates]').forEach(panel=>{
    const timeline=gsap.timeline({paused:true}).fromTo(panel,
-    {y:16,opacity:.5},{y:0,opacity:1,duration:.65,ease:'power2.out',immediateRender:false,clearProps:'transform,opacity'});
+    {y:phoneMotion?8:16,opacity:.5},{y:0,opacity:1,duration:phoneMotion ? .35 : .65,ease:'power2.out',immediateRender:false,clearProps:'transform,opacity'});
    const sweep=panel.querySelector('.radar-sweep');
-   const loop=sweep?gsap.to(sweep,{rotation:360,duration:5,ease:'none',repeat:-1,paused:true}):null;
+   const loop=sweep&&!phoneMotion?gsap.to(sweep,{rotation:360,duration:5,ease:'none',repeat:-1,paused:true}):null;
    register(panel,timeline,loop);
   });
   const observer=new IntersectionObserver(entries=>{
@@ -100,7 +136,25 @@ if(window.gsap&&'IntersectionObserver' in window){
   };
  });
 }
-const progress=document.querySelector('.reading-progress');let framePending=false;const updateScroll=()=>{const max=document.documentElement.scrollHeight-window.innerHeight;if(progress)progress.style.transform=`scaleX(${max>0?window.scrollY/max:0})`;document.querySelector('header')?.classList.toggle('scrolled',window.scrollY>30);framePending=false;};window.addEventListener('scroll',()=>{if(!framePending){requestAnimationFrame(updateScroll);framePending=true}},{passive:true});updateScroll();
+// Keep the floating contact action clear of the footer and other contact controls.
+const floatingContact=document.querySelector('.floating-whatsapp');
+const contactObstacles=[...document.querySelectorAll('.contact-band,footer,.people-section .profile-link,.home-actions,.home-hero-bottom a,.home-secondary,.home-partners,.home-briefing .updates-panel')];
+const updateFloatingContact=()=>{
+ if(!floatingContact)return;
+ const button=floatingContact.getBoundingClientRect();
+ const obscured=document.activeElement!==floatingContact&&contactObstacles.some(element=>{
+  const rect=element.getBoundingClientRect();
+  return rect.width>0&&rect.height>0&&rect.left<button.right&&rect.right>button.left&&rect.top<button.bottom&&rect.bottom>button.top;
+ });
+ floatingContact.toggleAttribute('data-obscured',obscured);
+ floatingContact.inert=obscured;
+};
+window.addEventListener('resize',updateFloatingContact,{passive:true});
+document.addEventListener('focusin',updateFloatingContact);
+document.addEventListener('focusout',()=>requestAnimationFrame(updateFloatingContact));
+document.addEventListener('toggle',updateFloatingContact,true);
+if(floatingContact&&'ResizeObserver' in window)new ResizeObserver(updateFloatingContact).observe(document.body);
+const progress=document.querySelector('.reading-progress');let framePending=false;const updateScroll=()=>{const max=document.documentElement.scrollHeight-window.innerHeight;if(progress)progress.style.transform=`scaleX(${max>0?window.scrollY/max:0})`;document.querySelector('header')?.classList.toggle('scrolled',window.scrollY>30);updateFloatingContact();framePending=false;};window.addEventListener('scroll',()=>{if(!framePending){requestAnimationFrame(updateScroll);framePending=true}},{passive:true});updateScroll();
 const expandBriefing=()=>{if(location.hash==='#more-briefing'){const section=document.querySelector('#more-briefing');if(section)section.open=true;}};
 document.querySelectorAll('[data-expand-briefing]').forEach(link=>link.addEventListener('click',()=>{const section=document.querySelector('#more-briefing');if(section)section.open=true;}));
 window.addEventListener('hashchange',expandBriefing);expandBriefing();

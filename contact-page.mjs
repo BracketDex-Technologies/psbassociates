@@ -16,20 +16,7 @@ export function contactPage({ offices, practices }) {
           <span class="eyebrow contact-eyebrow">Contact &amp; offices</span>
           <h1 id="contact-title">A conversation <br>starts with <br>understanding.</h1>
 
-          <ul class="contact-details">
-            <li>
-              <span class="contact-icon-badge">${icon('mail')}</span>
-              <div><span class="contact-detail-label">Write to us at</span><a class="contact-email" href="mailto:office@psbassociates.in">office@psbassociates.in</a></div>
-            </li>
-            <li>
-              <span class="contact-icon-badge">${icon('clock')}</span>
-              <div><span class="contact-detail-label">Our working hours</span><p class="contact-detail-value">Monday–Saturday</p><p class="contact-hours">10:30 AM–7:30 PM IST</p></div>
-            </li>
-            <li>
-              <span class="contact-icon-badge">${icon('phone')}</span>
-              <div><span class="contact-detail-label">Prefer to call?</span><p class="contact-office-label">Head office</p><div class="contact-phone-links">${phoneLinks(offices[0].phones)}</div></div>
-            </li>
-          </ul>
+
         </div>
 
         <form id="inquiry" class="contact-form" aria-labelledby="inquiry-title" aria-describedby="contact-delivery-note">
@@ -46,7 +33,7 @@ export function contactPage({ offices, practices }) {
             <legend>Area of interest</legend>
             <p class="contact-field-hint">Select all that apply.</p>
             <div class="contact-service-dropdown">
-              <button type="button" class="contact-service-trigger" aria-expanded="false" aria-controls="contact-service-menu">
+              <button type="button" class="contact-service-trigger" aria-expanded="false" aria-controls="contact-service-menu" aria-describedby="contact-service-error">
                 <span data-service-placeholder>Select one or more areas</span><span class="contact-service-chevron" aria-hidden="true">⌄</span>
               </button>
               <div id="contact-service-menu" class="contact-service-menu" hidden>
@@ -54,8 +41,8 @@ export function contactPage({ offices, practices }) {
                 ${services.map((service, index) => `<label class="contact-service-option"><input type="checkbox" name="service" value="${escapeHtml(service)}"${index === 0 ? ' required' : ''}><span>${escapeHtml(service)}</span></label>`).join('\n')}
               </div>
             </div>
-            <div class="contact-service-summary" aria-live="polite" aria-label="Selected areas of interest"></div>
-            <p class="contact-field-error" data-service-error role="alert" hidden>Please select at least one area of interest.</p>
+            <div class="contact-service-summary" role="status" aria-live="polite" aria-label="Selected areas of interest"></div>
+            <p id="contact-service-error" class="contact-field-error" data-service-error role="alert" hidden>Please select at least one area of interest.</p>
           </fieldset>
           <label class="contact-message" for="inquiry-message">How can we help?<textarea id="inquiry-message" name="message" rows="4" required maxlength="3000" placeholder="A short overview of your requirements" aria-describedby="contact-privacy-note"></textarea></label>
           <label class="contact-consent"><input type="checkbox" name="consent" required><span>I have read the <a href="/disclaimer/">professional disclaimer</a> and <a href="/privacy/">privacy notice</a>.</span></label>
@@ -80,7 +67,9 @@ export function contactPage({ offices, practices }) {
           <div class="contact-address">${icon('map-pin')}<address>${office.address}</address></div>
           ${office.phones.length ? `<div class="contact-office-phones">${icon('phone')}<div class="contact-phone-links">${phoneLinks(office.phones)}</div></div>` : ''}
           <a class="contact-directions" href="${office.directions || `https://www.google.com/maps/search/?api=1&amp;query=${encodeURIComponent(office.map)}`}" target="_blank" rel="noopener">View directions${icon('arrow-right')}<span class="sr-only"> to the ${escapeHtml(office.city)} office</span></a>
+          <details class="office-map" data-responsive-details open><summary>View map<span class="sr-only"> of the ${escapeHtml(office.city)} office</span></summary>
           <iframe title="Map of ${escapeHtml(office.city)} office area" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=${encodeURIComponent(office.map)}&amp;output=embed"></iframe>
+          </details>
         </article>`).join('\n')}
       </div>
     </section>`;

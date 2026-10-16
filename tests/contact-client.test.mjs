@@ -5,6 +5,68 @@ import vm from 'node:vm';
 
 const clientPath = new URL('../dist/assets/contact.js', import.meta.url);
 
+test('service validation is quiet initially and focuses the visible selector before sending', async () => {
+  const source = await readFile(clientPath, 'utf8');
+  const listeners = {};
+  const submit = { disabled: true };
+  const status = { textContent: '' };
+  const error = { hidden: true };
+  const placeholder = { textContent: '' };
+  const summary = { innerHTML: '' };
+  const service = { checked: false, required: true, value: 'Audit & Assurance', setCustomValidity() {}, addEventListener(event, listener) { this[event] = listener; } };
+  const trigger = { focused: false, attrs: {}, addEventListener() {}, setAttribute(name, value) { this.attrs[name] = value; }, focus() { this.focused = true; } };
+  const controls = {
+    'button[type="submit"]': submit,
+    '.contact-service-trigger': trigger,
+    '.contact-service-menu': { hidden: true },
+    '.contact-service-summary': summary,
+    '[data-service-placeholder]': placeholder,
+    '[data-service-error]': error,
+  };
+  const form = {
+    dataset: {},
+    querySelector: selector => controls[selector] || null,
+    querySelectorAll: () => [service],
+    reportValidity: () => true,
+    addEventListener: (name, listener) => { listeners[name] = listener; },
+  };
+  const fetchCalls = [];
+  vm.runInNewContext(source, {
+    document: {
+      querySelector: selector => selector === '#inquiry' ? form : selector === '#form-status' ? status : null,
+      addEventListener() {},
+    },
+    FormData: class {
+      get(name) { return ({ name: 'Test Person', email: 'test@example.com', message: 'Audit enquiry', consent: 'on', website: '' })[name] || null; }
+      getAll(name) { return name === 'service' && service.checked ? [service.value] : []; }
+    },
+    fetch: async (url, options) => {
+      fetchCalls.push({ url, options });
+      return { ok: true, json: async () => url === '/api/contact' ? { enabled: true, accessKey: 'test-key' } : { success: true } };
+    },
+    AbortSignal,
+    location: { assign() {} },
+    sessionStorage: { setItem() {} },
+  });
+  await new Promise(resolve => setImmediate(resolve));
+  assert.equal(error.hidden, true, 'do not show an error before interaction');
+  assert.equal(service.required, false, 'a hidden checkbox must not trap browser validation');
+  await listeners.submit({ preventDefault() {} });
+  assert.equal(fetchCalls.length, 1, 'missing service must not send the enquiry');
+  assert.equal(error.hidden, false);
+  assert.equal(trigger.focused, true);
+  service.checked = true;
+  service.change();
+  assert.equal(error.hidden, true);
+  controls['.contact-service-menu'].hidden = false;
+  await listeners.keydown({ key: 'Escape', preventDefault() {} });
+  assert.equal(controls['.contact-service-menu'].hidden, true);
+  assert.equal(trigger.attrs['aria-expanded'], 'false');
+  await listeners.submit({ preventDefault() {} });
+  assert.equal(fetchCalls.length, 2);
+  assert.equal(JSON.parse(fetchCalls[1].options.body).service, 'Audit & Assurance');
+});
+
 test('contact form submits directly to Web3Forms and opens no email application', async () => {
   const source = await readFile(clientPath, 'utf8');
   const listeners = {};

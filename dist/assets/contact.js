@@ -15,22 +15,41 @@
   serviceBackButton?.addEventListener?.('click', () => {
     serviceTrigger?.setAttribute('aria-expanded', 'false');
     if (serviceMenu) serviceMenu.hidden = true;
+    serviceTrigger?.focus?.();
   });
 
   const serviceInputs = form.querySelectorAll ? [...form.querySelectorAll('input[name="service"]')] : [];
+  let serviceValidationAttempted = false;
+  // Validate the group through its visible control, not a checkbox in a closed menu.
+  serviceInputs.forEach(input => { input.required = false; });
   const updateServices = () => {
     if (!serviceInputs.length) return;
     const selected = serviceInputs.filter(input => input.checked);
     servicePlaceholder.textContent = selected.length ? `${selected.length} area${selected.length === 1 ? '' : 's'} selected` : 'Select one or more areas';
     serviceSummary.innerHTML = selected.map(input => `<span class="contact-service-breadcrumb"><span>Area of interest</span><b aria-hidden="true">›</b>${input.value}</span>`).join('');
-    serviceError.hidden = selected.length > 0;
-    serviceInputs[0].setCustomValidity(selected.length ? '' : 'Select at least one area of interest.');
+    const invalid = serviceValidationAttempted && selected.length === 0;
+    serviceError.hidden = !invalid;
+    serviceTrigger.setAttribute('aria-invalid', String(invalid));
   };
 
   serviceTrigger?.addEventListener?.('click', () => {
     const open = serviceTrigger.getAttribute('aria-expanded') === 'true';
     serviceTrigger.setAttribute('aria-expanded', String(!open));
     serviceMenu.hidden = open;
+  });
+  form.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && serviceMenu && !serviceMenu.hidden) {
+      event.preventDefault();
+      serviceMenu.hidden = true;
+      serviceTrigger.setAttribute('aria-expanded', 'false');
+      serviceTrigger.focus();
+    }
+  });
+  form.addEventListener('focusin', event => {
+    if (serviceMenu && !serviceMenu.hidden && !event.target.closest('.contact-service-dropdown')) {
+      serviceMenu.hidden = true;
+      serviceTrigger.setAttribute('aria-expanded', 'false');
+    }
   });
   serviceInputs.forEach(input => input.addEventListener?.('change', updateServices));
   document.addEventListener?.('click', event => {
@@ -62,6 +81,12 @@
   form.addEventListener('submit', async event => {
     event.preventDefault();
     if (!form.reportValidity()) return;
+    if (serviceInputs.length && !serviceInputs.some(input => input.checked)) {
+      serviceValidationAttempted = true;
+      updateServices();
+      serviceTrigger.focus();
+      return;
+    }
 
     const values = new FormData(form);
     if (!accessKey) {
