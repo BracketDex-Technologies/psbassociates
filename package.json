@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "dev": "node --env-file-if-exists=.env --env-file-if-exists=.env.local server.mjs",
     "build": "node build.mjs",
     "start": "node --env-file-if-exists=.env --env-file-if-exists=.env.local server.mjs",
     "check": "node check.mjs",

@@ -153,3 +153,12 @@ header a:focus-visible,header .menu-toggle:focus-visible{outline-color:#886530}
 @media(prefers-reduced-motion:reduce){
  .floating-whatsapp,.home-hero-copy,.perspective-card{animation:none!important;transition:none!important}
 }
+/* Partner profile: ensure entire photo is visible without cropping */
+.page-partners .people-grid .person .portrait{aspect-ratio:4/5;border-radius:8px;overflow:hidden}
+.page-partners .people-grid .person .portrait img{width:100%;height:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 12%;transform:none!important}
+.partner-profile{display:grid;grid-template-columns:380px 1fr;gap:56px;align-items:start;padding:48px 0 80px}
+.partner-profile .portrait{width:100%;max-width:380px;height:auto;aspect-ratio:auto;background:transparent;border-radius:10px;overflow:hidden;box-shadow:0 16px 40px rgba(16,39,59,0.08)}
+.partner-profile .portrait img{width:100%!important;height:auto!important;max-height:none!important;aspect-ratio:auto!important;object-fit:contain!important;object-position:center top!important;transform:none!important;filter:none!important;display:block;border-radius:10px}
+@media(max-width:900px){.partner-profile{grid-template-columns:300px 1fr;gap:36px;padding:36px 0 60px}}
+@media(max-width:650px){.partner-profile{grid-template-columns:1fr;gap:24px;padding:24px 0 48px}.partner-profile .portrait{max-width:320px;margin:0 auto}}
+
