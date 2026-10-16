@@ -5,6 +5,43 @@ import vm from 'node:vm';
 
 const clientPath = new URL('../dist/assets/contact.js', import.meta.url);
 
+for (const failure of ['challenge', 'network', 'timeout', 'rejected']) test(`${failure} opens a manual email draft with the completed enquiry`, async () => {
+  const source = await readFile(clientPath, 'utf8');
+  const listeners = {};
+  const submit = { disabled: true };
+  const status = { textContent: '', append(text, link) { this.textContent += text; this.link = link; } };
+  let destination = '';
+  const form = { dataset: {}, querySelector: () => submit, reportValidity: () => true,
+    addEventListener: (name, callback) => { listeners[name] = callback; } };
+  vm.runInNewContext(source, {
+    document: { createElement: () => ({}), querySelector: selector => selector === '#inquiry' ? form : selector === '#form-status' ? status : null },
+    FormData: class { get(name) { return ({ name: 'Test & Person', email: 'test@example.com', message: 'Test enquiry\nTax & audit?', phone: '+91 12345', preferred_location: 'Pune', profile_link: 'https://example.com/resume?a=1&b=2' })[name] ?? null; } },
+    fetch: async url => {
+      if (url === '/api/contact') return { ok: true, json: async () => ({ enabled: true, accessKey: 'test-key' }) };
+      if (failure === 'network') throw new TypeError('Failed to fetch');
+      if (failure === 'timeout') { const error = new Error('Timeout'); error.name = 'TimeoutError'; throw error; }
+      return { ok: false, status: 403, json: async () => {
+        if (failure === 'challenge') throw new SyntaxError('Unexpected token <');
+        return { success: false, message: 'Submission rejected' };
+      } };
+    },
+    AbortSignal, location: { assign(url) { destination = url; } },
+  });
+  await new Promise(resolve => setImmediate(resolve));
+  await listeners.submit({ preventDefault() {} });
+  assert.match(destination, /^mailto:office@psbassociates\.in\?/);
+  const draft = new URL(destination);
+  assert.equal(draft.searchParams.get('subject'), 'PSB website enquiry: General inquiry');
+  assert.match(draft.searchParams.get('body'), /Name: Test & Person/);
+  assert.match(draft.searchParams.get('body'), /Tax & audit\?/);
+  assert.match(draft.searchParams.get('body'), /Preferred office: Pune/);
+  assert.match(draft.searchParams.get('body'), /resume\?a=1&b=2/);
+  assert.doesNotMatch(destination, /test-key|access_key/);
+  assert.equal(status.link.href, destination);
+  assert.match(status.textContent, /Review the draft and press Send/);
+  assert.equal(submit.disabled, false);
+});
+
 test('service validation is quiet initially and focuses the visible selector before sending', async () => {
   const source = await readFile(clientPath, 'utf8');
   const listeners = {};

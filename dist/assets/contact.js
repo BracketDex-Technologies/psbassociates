@@ -134,15 +134,38 @@
         body: JSON.stringify(payload),
         signal: AbortSignal.timeout(25000),
       });
-      const result = await response.json();
+      let result;
+      try {
+        result = await response.json();
+      } catch {
+        throw Error('The email service is temporarily unavailable or blocked this request. Your enquiry has not been confirmed. Please email office@psbassociates.in or call +91 94228 68050.');
+      }
       if (!response.ok || !result.success) throw Error(result.message || 'Your submission could not be sent.');
       try { sessionStorage.setItem('psb-enquiry-sent', '1'); } catch {}
       location.assign('/thank-you/');
     } catch (error) {
       status.textContent = error.name === 'TimeoutError'
         ? 'The request timed out. Please contact the firm before retrying to avoid a duplicate submission.'
-        : error.message;
+        : error.name === 'TypeError'
+          ? 'The email service could not be reached. Delivery has not been confirmed. Please email office@psbassociates.in or call +91 94228 68050.'
+          : error.message;
+      const fields = [
+        ['Name', 'name'], ['Email', 'email'], ['Areas of interest', 'service'],
+        ['Applying for', 'application_type'], ['Phone', 'phone'],
+        ['Preferred office', 'preferred_location'], ['Qualification', 'qualification'],
+        ['Experience', 'experience'], ['Resume / profile', 'profile_link'], ['Message', 'message'],
+      ];
+      const body = 'Online delivery was not confirmed. Please check for duplicates before processing.\r\n\r\n'
+        + fields.filter(([, key]) => payload[key]).map(([label, key]) => `${label}: ${payload[key]}`).join('\r\n\r\n');
+      const mailto = `mailto:office@psbassociates.in?subject=${encodeURIComponent(payload.subject)}&body=${encodeURIComponent(body)}`;
+      const manualLink = document.createElement('a');
+      manualLink.href = mailto;
+      manualLink.textContent = 'Send manually by email';
+      manualLink.className = 'manual-email-fallback';
+      status.append(' Your email app will open with your completed details. Review the draft and press Send. If it does not open, use this link: ', manualLink);
       submit.disabled = false;
+      // Opening a draft never sends it; keep the link for browsers that block app launches.
+      try { location.assign(mailto); } catch {}
     }
   });
 })();

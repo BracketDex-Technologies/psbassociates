@@ -33,6 +33,7 @@ header a:focus-visible,header .menu-toggle:focus-visible{outline-color:#886530}
 .career-context>summary{display:none}
 .contact-service-trigger[aria-invalid='true']{border-color:#9b3d32}
 .contact-field-error[hidden]{display:none}
+.manual-email-fallback{display:inline-flex;align-items:center;min-height:44px;text-decoration:underline;text-underline-offset:4px}
 :is(.page-contact,.page-careers) .contact-form .contact-form-note{font-size:.8125rem;color:var(--muted)}
 .contact-offices-heading h2{font-size:clamp(1.8rem,2.7vw,2.5rem)}
 
