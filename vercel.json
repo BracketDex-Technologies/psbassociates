@@ -2,6 +2,12 @@
   "buildCommand": "node build.mjs --origin=https://www.psbassociates.in",
   "outputDirectory": "dist",
   "framework": null,
+  "redirects": [
+    {"source": "/industries", "destination": "/services/#industries", "permanent": true},
+    {"source": "/industries/", "destination": "/services/#industries", "permanent": true},
+    {"source": "/resources", "destination": "/#home-briefing", "permanent": true},
+    {"source": "/resources/", "destination": "/#home-briefing", "permanent": true}
+  ],
   "regions": [
     "bom1"
   ],

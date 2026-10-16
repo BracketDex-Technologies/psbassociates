@@ -69,3 +69,214 @@ header .brand small,.footer-identities .brand small{font-family:Manrope,Arial,sa
 .floating-whatsapp img{width:32px;height:32px}
 @media(max-width:650px){.floating-whatsapp{right:16px;bottom:max(16px,env(safe-area-inset-bottom));width:56px;height:56px}}
 @media(prefers-reduced-motion:reduce){.floating-whatsapp{transition:none}}
+
+/* Consolidated navigation and compact editorial sections. */
+:root{--page-title-size:clamp(2.65rem,4.05vw,4rem)}
+header .brand>div{font-size:1.6rem}
+header nav{gap:20px;font-size:.82rem}
+.home-hero h1,.page-intro h1{font-size:var(--page-title-size);line-height:1.12}
+.page-intro{padding-top:44px;padding-bottom:32px}
+.page-intro>p,.home-hero-copy>p{font-size:1.08rem;line-height:1.75}
+main p,.footer-bottom>p{text-align:justify;text-justify:inter-word;text-align-last:start;hyphens:auto}
+.footer-bottom>p{max-width:none;width:100%;margin:0;hyphens:none}
+@media(min-width:1200px){.footer-bottom>p{font-size:.625rem;letter-spacing:0}}
+.career-application-copy>p,.merged-industries p,.briefing-intro>p{font-size:1rem;line-height:1.75}
+.firm-section{padding-top:48px;padding-bottom:48px}
+.about-body{padding-top:36px;padding-bottom:24px;align-items:start;gap:48px}
+.about-photo img{height:300px}
+.about-body h2{font-size:2rem}
+.firm-principles{padding:24px 0 44px;border-top:1px solid var(--line)}
+.firm-principles h2{font-size:2rem;margin-bottom:24px}
+.firm-principles .three-col{gap:28px}
+.firm-principles .three-col article{padding-top:16px}
+.firm-principles h3{font-size:1.2rem;margin-bottom:12px}
+.expertise-section .practice-card,.service-index .practice-card{min-height:260px}
+.practice-card .practice-top{margin-bottom:20px}
+.practice-card .card-link{padding-top:12px}
+.practice-card h3{min-height:0}
+.service-index{padding-top:32px;padding-bottom:36px}
+.specialist-section{padding-bottom:42px}
+.merged-industries{padding-top:38px;padding-bottom:22px;border-top:1px solid var(--line);scroll-margin-top:110px}
+.merged-industries .section-head{margin-bottom:24px}
+.merged-industries .industry-grid{padding:0;gap:20px;align-items:stretch}
+.merged-industries .industry-grid article{padding:22px;border:1px solid #dce4ea;border-radius:8px;background:#f7f9fa}
+.merged-industries h3{font-size:1.2rem;line-height:1.35;min-height:2.7em;margin-bottom:10px;letter-spacing:-.025em}
+.merged-industries .industry-grid p{font-size:.9375rem;line-height:1.75;hyphens:none;overflow-wrap:normal}
+.merged-industries .view-more .industry-grid{padding-top:18px}
+.page-services .faq-section{max-width:none;padding-top:36px;padding-bottom:44px;border-top:1px solid var(--line);margin-top:20px}
+.page-services .faq-section .section-head{margin-bottom:24px;align-items:end}
+.page-services .faq-section .section-head>p{font-size:1rem;line-height:1.75;hyphens:none}
+.page-services .faq-list{border-top:1px solid #dce4ea}
+.page-services .faq-list details{padding:0;border-bottom:1px solid #dce4ea}
+.page-services .faq-list summary{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:64px;padding:17px 0;font-size:1rem;line-height:1.5;font-weight:600;list-style:none}
+.page-services .faq-list summary::-webkit-details-marker{display:none}
+.page-services .faq-list summary::after{content:'+';flex:0 0 24px;text-align:center;color:#9a7543;font-size:1.4rem;font-weight:400}
+.page-services .faq-list details[open]>summary::after{content:'−'}
+.page-services .faq-list details[open]>summary{color:#8c6938}
+.page-services .faq-list details>p{max-width:85ch;margin:0 0 20px;font-size:1rem;line-height:1.75;hyphens:none}
+@media(max-width:650px){.merged-industries .industry-grid article{padding:20px}.merged-industries h3{min-height:0}.page-services .faq-list summary{font-size:.9375rem;padding:15px 0}.page-services .faq-section .section-head>p{font-size:.9375rem;margin-top:16px}}
+.view-more{padding:14px 0;border:0}
+.view-more>summary{color:#8c6938;font-size:.875rem;font-weight:600;width:fit-content;border-bottom:1px solid #c8aa7b;padding-bottom:4px}
+.view-more .when-open{display:none}
+.view-more[open]>summary .when-open{display:inline}
+.view-more[open]>summary .when-closed{display:none}
+.view-more>p:first-of-type{margin-top:16px}
+.briefing-more{margin-top:20px}
+.briefing-more[open]>.updates-panel{margin-top:24px}
+.briefing-more .insight-section{padding-top:36px;padding-bottom:16px}
+.briefing-more .section-head h2{font-size:2rem}
+.briefing-more .insight-card h3{font-size:1.2rem}
+.contact-introduction h1{margin-bottom:20px}
+/* Compact editorial layout: short summaries first; supporting detail on demand. */
+main p{ text-align:justify;text-justify:inter-word;text-align-last:start;hyphens:auto;word-spacing:normal }
+main .section-head>p{ text-align:left }
+.page-intro{padding-top:30px;padding-bottom:24px}
+.page-intro>p{margin-top:16px;max-width:70ch}
+.section-head{gap:24px;margin-bottom:22px}
+.section-head h2{font-size:clamp(1.8rem,2.7vw,2.5rem)}
+.eyebrow{margin-bottom:12px}
+.firm-strip{padding:18px 0}
+.firm-strip strong{font-size:1.9rem}
+.firm-section{padding:32px 0;gap:40px;align-items:center}
+.firm-section .lead{font-size:1.12rem;margin:0}
+.compact-links{display:flex;flex-wrap:wrap;gap:12px 24px;margin-top:16px}
+.home-briefing{padding:32px 0}
+.home-briefing-grid{gap:36px;align-items:center}
+.briefing-intro h2{font-size:clamp(1.8rem,2.7vw,2.5rem)}
+.briefing-intro>p{margin-top:16px}
+.briefing-sources{margin-top:14px}
+.briefing-more{margin-top:8px}
+.people-section{padding:30px 0}
+.page-home .person{display:flex;gap:18px;align-items:center;padding:16px;background:#fff;border:1px solid var(--line);border-radius:8px}
+.page-home .person .portrait{width:84px;flex:0 0 84px}
+.page-home .person .portrait img{height:108px;aspect-ratio:auto;object-fit:cover}
+.page-home .person-meta{padding:0;min-width:0}
+.page-home .person h3{font-size:1.05rem;margin-top:5px}
+.page-home .person p{font-size:.8rem;margin-top:4px;text-align:left}
+.page-home .person .profile-link{margin-top:8px}
+footer{padding-top:28px}
+.footer-grid{gap:24px}
+.footer-grid h3{margin-bottom:12px}
+.footer-grid p{margin-top:12px}
+.footer-grid>div>a:not(.brand){margin-bottom:6px}
+.footer-bottom{margin-top:24px;padding-top:16px;padding-bottom:18px}
+.about-body{padding:24px 0;gap:36px;align-items:start}
+.about-photo img{height:240px;object-fit:cover}
+.about-body h2{font-size:1.8rem;margin-bottom:16px}
+.firm-principles{padding:22px 0}
+.firm-principles h2{font-size:1.7rem;margin-bottom:16px}
+.firm-principles .three-col article{padding-top:0}
+.firm-principles h3{margin-bottom:8px}
+.service-index{padding:20px 0 24px}
+.compact-services .practice-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;border:0}
+.compact-services .practice-card{min-height:0;padding:20px!important}
+.compact-services .practice-top{margin-bottom:14px}
+.compact-services .service-icon{width:26px;height:26px}
+.compact-services .practice-card h3{font-size:1.25rem}
+.compact-services .practice-card p{font-size:.9rem;margin:12px 0 16px}
+.compact-services .card-link{margin-top:auto}
+.specialist-links{display:flex;flex-wrap:wrap;align-items:center;gap:10px 20px;padding-top:18px}
+.specialist-links h2{font-size:1rem;letter-spacing:0}
+.specialist-links .text-link{font-size:.85rem}
+.merged-industries{padding-top:24px;padding-bottom:18px}
+.merged-industries .section-head{margin-bottom:16px}
+.merged-industries .industry-grid{gap:10px;align-items:start}
+.sector-disclosure{padding:0;border:1px solid var(--line);border-radius:6px;background:#f5f8fa;min-width:0}
+.sector-disclosure summary{display:flex;align-items:center;justify-content:space-between;gap:12px;list-style:none;padding:14px 16px;min-height:58px;font-size:.94rem;line-height:1.5;font-weight:500}
+.sector-disclosure summary::-webkit-details-marker{display:none}
+.sector-disclosure summary::after{content:'+';color:#987140;flex-shrink:0}
+.sector-disclosure[open]>summary::after{content:'−'}
+.merged-industries .sector-disclosure p{padding:0 16px 16px;margin:0;font-size:.9rem;line-height:1.65;hyphens:auto}
+.page-services .faq-section{padding:24px 0 16px;margin-top:0}
+.page-services .faq-section .section-head{margin-bottom:16px}
+.page-services .faq-list summary{min-height:50px;padding:12px 0;font-size:.94rem}
+.page-services .faq-list details>p{font-size:.94rem;line-height:1.65;margin-bottom:16px}
+.faq-more .faq-list{margin-top:14px}
+.detail-layout{padding:28px 0;gap:36px}
+.detail-layout h2{margin:24px 0 14px}
+.detail-layout .service-list>div{padding:11px 0}
+.detail-layout .related-services{margin-top:24px;padding-top:20px}
+.detail-layout .specialist-card{min-height:0;padding:20px}
+.detail-layout .specialist-card h3{font-size:1.2rem;margin:12px 0}
+.detail-layout .specialist-card b{padding-top:14px;margin-top:16px}
+.page-partners .partners-index{padding:24px 0}
+.page-partners .portrait img{height:280px;aspect-ratio:auto;object-fit:cover;object-position:center 18%}
+.partner-profile{padding:28px 0;gap:36px}
+.legal{padding:28px 0}
+@media(max-width:1050px){.compact-services .practice-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.page-home .people-grid{gap:12px}.page-home .person{gap:12px;padding:12px}.page-home .person .portrait{width:64px;flex-basis:64px}}
+@media(max-width:650px){.page-intro{padding:24px 0 18px}.page-intro h1{font-size:clamp(2.2rem,9vw,2.8rem)}.section-head{margin-bottom:16px}.section-head>p{margin-top:12px}.firm-section{gap:16px;padding:24px 0}.home-briefing{padding:24px 0}.home-briefing-grid{gap:20px}.people-section{padding:24px 0}.page-home .people-grid{grid-template-columns:1fr;gap:10px}.page-home .person .portrait{width:64px;flex-basis:64px}.page-home .person .portrait img{height:80px}.page-home .person .profile-link{margin-top:4px}.contact-band{padding:20px;gap:18px;flex-wrap:wrap;margin-top:18px;margin-bottom:20px}.contact-band h2{font-size:1.55rem}.compact-services .practice-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.compact-services .practice-card{padding:14px!important;margin:0}.compact-services .practice-card h3{font-size:1.05rem;overflow-wrap:anywhere}.compact-services .practice-card p{display:none}.compact-services .practice-top{margin-bottom:10px}.compact-services .card-link{margin-top:14px;font-size:.78rem}.specialist-links{gap:8px}.specialist-links h2{width:100%}.specialist-links .text-link{display:block;width:100%}.merged-industries .industry-grid{grid-template-columns:1fr;gap:8px}.sector-disclosure summary{min-height:48px;padding:12px 14px}.page-services .faq-section .section-head>.text-link{margin-top:12px}.about-body{gap:20px;padding:20px 0}.about-photo img{height:180px}.firm-principles .three-col{gap:16px}.firm-principles h2{font-size:1.5rem}.footer-grid{gap:20px}.footer-bottom{margin-top:18px}.detail-layout{gap:24px;padding:24px 0}.page-partners .people-grid{grid-template-columns:1fr}.page-partners .person{display:grid;grid-template-columns:90px 1fr;gap:18px;align-items:center;padding-bottom:16px}.page-partners .portrait img{height:118px;aspect-ratio:auto}.page-partners .person-meta{padding:0}.page-partners .person h3{font-size:1.12rem}.page-partners .profile-link{margin-top:8px}}
+@media(min-width:901px) and (max-width:1200px){header .brand>div{font-size:1.25rem}header nav{gap:14px;font-size:.76rem}}
+@media(max-width:900px){.about-body{gap:28px}.firm-principles .three-col{gap:20px}header .brand>div{font-size:1.35rem}}
+.detail-layout .scope-heading{margin-top:0}
+.page-services .faq-section .section-head>.text-link{margin-top:0}
+.page-services .faq-more{padding:12px 0 0;border:0}
+.page-services .faq-more>summary{font-size:.875rem}
+@media(max-width:650px){
+ header .brand>div{font-size:clamp(.98rem,4vw,1.2rem)}
+ header .brand small{font-size:.65rem}
+ .home-hero-grid{padding:26px 0 24px;gap:22px}
+ .home-hero-copy>p{margin-top:16px}
+ .home-actions{margin-top:18px}
+ .home-partners{margin-top:18px;padding-top:16px}
+ .home-hero .perspective-card{padding:6px 14px;box-shadow:none}
+ .home-hero .perspective-heading,.home-hero .perspective-art,.home-hero .perspective-foot{display:none}
+ .perspective-practices{grid-template-columns:1fr 1fr;border-top:0;gap:0 14px}
+ .perspective-practices a{gap:6px;padding:12px 0}
+ .perspective-practices small{display:none}
+ .perspective-practices span{font-size:.8rem}
+ .home-hero-bottom{padding:12px 0}
+ .home-briefing .compact .feed-list{max-height:150px}
+ .home-briefing .updates-header{padding:14px 16px}
+ .home-briefing .news-item{padding:12px 16px}
+ .page-home .people-section .section-head{display:flex;align-items:center;gap:12px}
+ .page-home .people-section .section-head .eyebrow{display:none}
+ .page-home .people-section .section-head h2{font-size:1.65rem}
+ .page-home .people-section .section-head>.text-link{font-size:.8rem;margin:0}
+ .page-home .person .profile-link{display:none}
+ .page-home .person-meta>span:first-child{font-size:.6rem}
+ .merged-industries .industry-grid{grid-template-columns:1fr 1fr;gap:8px}
+ .sector-disclosure summary{font-size:.85rem;min-height:72px;padding:10px;gap:8px}
+ .merged-industries .sector-disclosure p{padding:0 10px 12px;font-size:.85rem}
+ .footer-grid>div:last-child{display:flex;flex-wrap:wrap;gap:8px 16px}
+ .footer-grid>div:last-child h3{width:100%;margin:0}
+ .footer-grid>div:last-child p{margin:0}
+ .footer-grid>div>a:not(.brand){font-size:.78rem}
+ .briefing-more .section-head h2{font-size:1.7rem}
+}
+
+/* Keep the homepage Our People presentation at its original visual scale. */
+.page-home .people-section{padding:85px 0 95px}
+.page-home .people-grid{gap:30px}
+.page-home .person{display:block;padding-bottom:23px;background:transparent;border:0;border-bottom:1px solid #c6d4df;border-radius:0}
+.page-home .person .portrait{width:auto;flex:initial;border-radius:8px}
+.page-home .person .portrait img{width:100%;height:auto;aspect-ratio:4/4.65;object-fit:cover;object-position:center 16%}
+.page-home .person-meta{padding:24px 0 0}
+.page-home .person h3{font-size:1.22rem;margin-top:10px}
+.page-home .person p{font-size:.85rem;margin-top:7px;text-align:left}
+.page-home .person .profile-link{display:inline-block;margin-top:18px}
+@media(max-width:650px){.page-home .people-section{padding:55px 0 65px}.page-home .people-grid{grid-template-columns:1fr;gap:28px}.page-home .person{display:block;padding:0 0 20px}.page-home .person .portrait img{height:auto;aspect-ratio:4/4.2}.page-home .person-meta{padding-top:18px}.page-home .person h3{font-size:1.3rem}.page-home .person .profile-link{display:inline-block;margin-top:15px}}
+
+/* Shared page-heading scale and consistent partner portrait framing. */
+.page-intro h1,.partner-profile h1,.page-careers .career-application-copy h1{font-size:var(--page-title-size);line-height:1.12}
+.page-contact .contact-introduction h1{font-size:var(--page-title-size);line-height:1.12}
+.page-intro>p{max-width:68ch;text-align:left;text-align-last:auto;hyphens:none;word-spacing:normal}
+.page-partners .person .portrait{overflow:hidden}
+.page-partners .person .portrait img,.page-partners .person:hover .portrait img,.page-partners .person .portrait img[src*='pavan'],.page-partners .person .portrait img[src*='sagar'],.page-partners .person:hover .portrait img[src*='pavan'],.page-partners .person:hover .portrait img[src*='sagar']{width:100%;height:auto;aspect-ratio:4/4.65;object-fit:cover;object-position:center 18%;transform:none}
+@media(max-width:650px){.page-intro h1,.partner-profile h1,.page-careers .career-application-copy h1,.page-contact .contact-introduction h1{font-size:clamp(2.2rem,9vw,2.8rem)}.page-partners .person .portrait img{aspect-ratio:4/4.2}}
+
+/* Short How We Work summaries should read naturally instead of stretching words. */
+.firm-principles .three-col{gap:28px}
+.firm-principles .three-col article{padding-top:16px}
+.firm-principles .three-col h3{margin-bottom:10px}
+.firm-principles .three-col p{font-size:.95rem;line-height:1.65;text-align:left;text-align-last:auto;hyphens:none;word-spacing:normal}
+
+/* Footer legal notice: readable utility text with consistent left alignment. */
+.footer-bottom>p{font-size:.75rem;line-height:1.5;text-align:left;text-align-last:auto;text-justify:none;hyphens:none;word-spacing:normal}
+
+/* Full-width contact call-to-action with content aligned to the site grid. */
+.contact-band{display:flex;align-items:center;width:100%;max-width:none;min-height:200px;margin:24px 0 28px;border-radius:0;padding:56px 0}
+.contact-band-inner{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.contact-band h2{font-size:clamp(1.5rem,2.3vw,2rem);line-height:1.18;margin:0}
+.contact-band .eyebrow{margin:0 0 8px}
+.contact-band-inner>.button{flex-shrink:0}
+@media(max-width:650px){.contact-band{min-height:0;padding:36px 0}.contact-band-inner{flex-wrap:wrap;gap:22px}.contact-band h2{font-size:1.55rem}}

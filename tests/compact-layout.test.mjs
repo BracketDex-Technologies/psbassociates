@@ -1,0 +1,35 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { industrySection, scopeMarkup } from '../page-sections.mjs';
+import { industries } from '../industries.mjs';
+import { faqs, faqMarkup, seo } from '../seo.mjs';
+
+test('every industry remains available through a closed, native disclosure', () => {
+  assert.equal((industrySection.match(/class="sector-disclosure"/g) || []).length, industries.length);
+  assert.doesNotMatch(industrySection, /<details[^>]*\bopen\b/);
+  for (const { name, description } of industries) {
+    assert.ok(industrySection.includes(name));
+    assert.ok(industrySection.includes(description));
+  }
+});
+
+test('three FAQs show initially and additional answers remain accessible and in schema', () => {
+  const [initial, additional] = faqMarkup.split('<details class="view-more faq-more">');
+  assert.equal((initial.match(/<details>/g) || []).length, 3);
+  assert.equal((additional.match(/<details>/g) || []).length, faqs.length - 3);
+  const metadata = seo('https://psb.example', '/services/', 'Services', 'Services overview');
+  for (const [question, answer] of faqs) {
+    assert.ok(faqMarkup.includes(question));
+    assert.ok(faqMarkup.includes(answer));
+    assert.ok(metadata.includes(question));
+  }
+});
+
+test('compact service scope retains all items behind View more', () => {
+  const items = Array.from({ length: 7 }, (_, index) => 'Scope item ' + (index + 1));
+  const markup = scopeMarkup(items);
+  assert.equal((markup.split('<details')[0].match(/Scope item/g) || []).length, 4);
+  for (const item of items) assert.ok(markup.includes(item));
+  assert.ok(markup.includes('<span>07</span>'));
+  assert.doesNotMatch(scopeMarkup(items.slice(0, 3)), /<details/);
+});

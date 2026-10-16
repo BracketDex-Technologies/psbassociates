@@ -9,7 +9,8 @@ export const faqs=[
  ['How can I contact PSB Associates?','Email office@psbassociates.in or call +91 99224 12220. Office hours are Monday to Saturday, 10:30 AM to 7:30 PM IST.'],
  ['Where does the PSB Briefing get its updates?','The Briefing checks the official GST, Income Tax, ICAI and RBI announcement sources. Each item links to its official source and shows the publication date when available. Refresh checks all four sources immediately; unavailable sources retain clearly marked previously checked information.']
 ];
-export const faqMarkup=`<section class="wrap faq-section"><span class="eyebrow">USEFUL ANSWERS</span><h2>About our practice.</h2>${faqs.map(([q,a])=>`<details><summary>${q}</summary><p>${a}</p></details>`).join('')}<a class="text-link" href="/contact/">Office addresses and contact details</a></section>`;
+const faqRows=items=>items.map(([q,a])=>`<details><summary>${q}</summary><p>${a}</p></details>`).join('');
+export const faqMarkup=`<section class="wrap faq-section" aria-labelledby="faq-title"><div class="section-head"><div><span class="eyebrow">USEFUL ANSWERS</span><h2 id="faq-title">Common questions.</h2></div><a class="text-link" href="/contact/">Office & contact details</a></div><div class="faq-list">${faqRows(faqs.slice(0,3))}</div><details class="view-more faq-more"><summary><span class="when-closed">View more questions</span><span class="when-open">View fewer questions</span></summary><div class="faq-list">${faqRows(faqs.slice(3))}</div></details></section>`;
 export function seo(origin,route,title,description){
  const verification=route==='/'?'<meta name="google-site-verification" content="Ubrs6quGv6rDhrCqP6ZlVnqqGe8q5ldt_Tpmxx4lxsM">':'';
  return verification+pageSeo(origin,route,title,description);
@@ -20,7 +21,7 @@ function pageSeo(origin,route,title,description){
   '/':'PSB & Associates LLP | Chartered Accountants',
   '/about/':'About PSB Associates LLP | Chartered Accountants',
   '/contact/':'Contact PSB & Associates LLP | Chartered Accountants',
-  '/services/':'Audit, GST, Tax & Accounting Services | PSB Associates LLP',
+  '/services/':'Expertise & Industries | PSB Associates LLP',
   '/services/audit-assurance/':'Audit & Assurance Services | PSB Associates LLP',
   '/services/taxation/':'Income Tax & GST Advisory | PSB Associates LLP',
   '/services/accounting-outsourcing/':'Accounting & Virtual CFO Services | PSB Associates LLP',
@@ -55,7 +56,7 @@ function pageSeo(origin,route,title,description){
  }
  const graph=[firm,{'@type':'WebSite','@id':origin+'/#website',name,alternateName:'PSB Associates LLP',url:origin+'/',publisher:{'@id':firm['@id']}},{'@type':'WebPage','@id':origin+route+'#webpage',url:origin+route,name:headline,description,inLanguage:'en-IN',isPartOf:{'@id':origin+'/#website'},about:{'@id':firm['@id']}}];
  for(const offer of firm.hasOfferCatalog.itemListElement)offer.itemOffered.audience=industries.map(industry=>({'@type':'BusinessAudience',audienceType:industry.name}));
- const answers=route==='/'?faqs:serviceAnswers[route.split('/')[2]];
+ const answers=route==='/services/'?faqs:serviceAnswers[route.split('/')[2]];
  if(answers?.length)graph.push(faqSchema(origin,route,answers));
  if(route!=='/')graph.push({'@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'Home',item:origin+'/'},{'@type':'ListItem',position:2,name:title,item:origin+route}]});
  if(route.startsWith('/services/')&&route!=='/services/')graph.push({'@type':'Service','@id':origin+route+'#service',name:firm.hasOfferCatalog.itemListElement.find(offer=>offer.itemOffered.url===origin+route)?.itemOffered.name||title,description,url:origin+route,provider:{'@id':firm['@id']},areaServed:'India and abroad'});
