@@ -54,6 +54,15 @@ test('mobile footer has a compact notice while the Disclaimer page retains the f
   assert.match(disclaimer, /<p class="lead">As per the rules of the Institute of Chartered Accountants of India/);
 });
 
+test('phone services sections avoid stacked desktop whitespace', () => {
+  const css = fs.readFileSync('dist/assets/refinements.css', 'utf8');
+  const compactSpacing = css.match(/@media\(max-width:650px\)\{\s*\.page-services \.services-index-section\{padding-bottom:0\}[\s\S]*?\n\}/)?.[0];
+  assert.ok(compactSpacing, 'Spacing changes must be restricted to phones');
+  assert.match(compactSpacing, /\.page-services \.service-index\{padding-bottom:0\}/);
+  assert.match(compactSpacing, /\.page-services \.industries-section\{padding:24px 0\}/);
+  assert.match(compactSpacing, /\.page-services \.faq-banner\{padding:0 0 24px\}/);
+});
+
 test('Hingoli phone and WhatsApp use the updated number, including structured data', () => {
   const contact = fs.readFileSync('dist/contact/index.html', 'utf8');
   const hingoli = contact.match(/<article class="contact-office" id="office-hingoli">([\s\S]*?)<\/article>/)?.[1];

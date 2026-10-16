@@ -369,6 +369,13 @@ h1, h2, h3 {
 .industries-section .merged-industries {
   padding: 0;
 }
+/* Avoid stacking desktop section padding on the compact phone services page. */
+@media(max-width:650px){
+ .page-services .services-index-section{padding-bottom:0}
+ .page-services .service-index{padding-bottom:0}
+ .page-services .industries-section{padding:24px 0}
+ .page-services .faq-banner{padding:0 0 24px}
+}
 
 /* Alternating Section: Pure White (#ffffff) */
 .about-narrative-section,
