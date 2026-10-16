@@ -12,6 +12,8 @@ test('The Firm shows the full introduction and all three professional principles
   assert.doesNotMatch(about, /View more about our practice/);
   assert.match(narrative, /The firm provides services to clients in India and abroad/);
   assert.match(narrative, /Our practice serves clients in India and abroad/);
+  assert.match(narrative, /<div class="about-introduction">/);
+  assert.match(narrative, /<div class="about-continuation"><p>The firm provides services/);
   for (const heading of ['Professional integrity', 'Partner-led attention', 'Time-bound execution']) {
     assert.ok(howWeWork.includes(`<h3>${heading}</h3>`));
   }
@@ -42,6 +44,14 @@ test('services FAQ uses a single shared-width container, not a double inset', ()
   const home = fs.readFileSync('dist/index.html', 'utf8');
   assert.match(home, /<section class="insight-section">/);
   assert.doesNotMatch(home, /class="wrap insight-section"/);
+});
+
+test('mobile footer has a compact notice while the Disclaimer page retains the full text', () => {
+  const home = fs.readFileSync('dist/index.html', 'utf8');
+  assert.match(home, /class="footer-notice-short">Firm information only\. This website is not intended to advertise or solicit professional work\./);
+  assert.match(home, /class="footer-notice-full">As per the rules of the Institute/);
+  const disclaimer = fs.readFileSync('dist/disclaimer/index.html', 'utf8');
+  assert.match(disclaimer, /<p class="lead">As per the rules of the Institute of Chartered Accountants of India/);
 });
 
 test('Hingoli phone and WhatsApp use the updated number, including structured data', () => {

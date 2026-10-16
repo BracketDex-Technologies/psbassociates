@@ -35,6 +35,36 @@ const syncPhoneDetails=()=>{
 phoneLayout.addEventListener('change',syncPhoneDetails);
 compactLaptop.addEventListener('change',syncPhoneDetails);
 syncPhoneDetails();
+
+// Short mobile previews for long editorial copy, without hiding desktop text.
+// Native disclosures, forms and legal notices keep their existing behaviour.
+const mobileCopySelectors='.about-introduction>p,.about-continuation>p,.firm-principles article>p,.practice-overview,.partner-profile .lead,.partner-profile .partner-experience,.detail-layout>div>p:not(.legal-reference),.page-intro>p';
+document.querySelectorAll(mobileCopySelectors).forEach((paragraph,index)=>{
+ const text=paragraph.textContent;
+ if(text.length<300||paragraph.children.length||paragraph.closest('details'))return;
+ const boundary=text.lastIndexOf(' ',180);
+ if(boundary<80)return;
+ const remainder=document.createElement('span');
+ remainder.className='mobile-copy-remainder';remainder.id=`mobile-copy-${index}-rest`;
+ remainder.textContent=text.slice(boundary);
+ const ellipsis=document.createElement('span');
+ ellipsis.className='mobile-copy-ellipsis';ellipsis.textContent='…';ellipsis.setAttribute('aria-hidden','true');
+ const button=document.createElement('button');
+ button.type='button';button.className='mobile-copy-toggle';
+ button.setAttribute('aria-controls',remainder.id);
+ let expanded=false;
+ const sync=()=>{
+  const collapsed=phoneLayout.matches&&!expanded;
+  remainder.hidden=collapsed;ellipsis.hidden=!collapsed;
+  button.hidden=!phoneLayout.matches;
+  button.textContent=collapsed?'View more':'View less';
+  button.setAttribute('aria-expanded',String(!collapsed));
+ };
+ paragraph.replaceChildren(document.createTextNode(text.slice(0,boundary)),ellipsis,remainder,button);
+ button.addEventListener('click',()=>{expanded=!expanded;sync()});
+ phoneLayout.addEventListener('change',sync);
+ sync();
+});
 // Replay only after leaving and re-entering the viewport, in either direction.
 // Content stays visible before observation, without GSAP, or with reduced motion.
 document.querySelectorAll('[data-updates].compact .updates-header>div').forEach(heading=>{
@@ -159,6 +189,34 @@ document.addEventListener('toggle',updateFloatingContact,true);
 if(floatingContact&&'ResizeObserver' in window)new ResizeObserver(updateFloatingContact).observe(document.body);
 const progress=document.querySelector('.reading-progress');let framePending=false;const updateScroll=()=>{const max=document.documentElement.scrollHeight-window.innerHeight;if(progress)progress.style.transform=`scaleX(${max>0?window.scrollY/max:0})`;document.querySelector('header')?.classList.toggle('scrolled',window.scrollY>30);updateFloatingContact();framePending=false;};window.addEventListener('scroll',()=>{if(!framePending){requestAnimationFrame(updateScroll);framePending=true}},{passive:true});updateScroll();
 const expandBriefing=()=>{if(location.hash==='#more-briefing'){const section=document.querySelector('#more-briefing');if(section)section.open=true;}};
+
+// Native horizontal swiping with explicit controls; never auto-advance while reading.
+document.querySelectorAll('[data-people-rail]').forEach(rail=>{
+ const cards=[...rail.querySelectorAll('.person')];
+ const controls=rail.nextElementSibling;
+ const previous=controls.querySelector('[data-people-step="-1"]');
+ const next=controls.querySelector('[data-people-step="1"]');
+ const position=controls.querySelector('[data-people-position]');
+ const step=()=>cards.length>1?cards[1].offsetLeft-cards[0].offsetLeft:rail.clientWidth;
+ const index=()=>Math.max(0,Math.min(cards.length-1,Math.round(rail.scrollLeft/step())));
+ const sync=()=>{
+  if(phoneLayout.matches)rail.setAttribute('tabindex','0');else rail.removeAttribute('tabindex');
+  previous.disabled=rail.scrollLeft<=2;
+  next.disabled=rail.scrollLeft+rail.clientWidth>=rail.scrollWidth-2;
+  position.textContent=`${index()+1} / ${cards.length}`;
+ };
+ const move=direction=>rail.scrollTo({left:(index()+direction)*step(),behavior:reducedMotion.matches?'instant':'smooth'});
+ previous.addEventListener('click',()=>move(-1));
+ next.addEventListener('click',()=>move(1));
+ rail.addEventListener('keydown',event=>{
+  if(event.target!==rail||!phoneLayout.matches||!['ArrowLeft','ArrowRight'].includes(event.key))return;
+  event.preventDefault();move(event.key==='ArrowRight'?1:-1);
+ });
+ rail.addEventListener('scroll',sync,{passive:true});
+ window.addEventListener('resize',sync,{passive:true});
+ phoneLayout.addEventListener('change',sync);
+ sync();
+});
 document.querySelectorAll('[data-expand-briefing]').forEach(link=>link.addEventListener('click',()=>{const section=document.querySelector('#more-briefing');if(section)section.open=true;}));
 window.addEventListener('hashchange',expandBriefing);expandBriefing();
 document.querySelectorAll('.scroll-controls').forEach(controls=>{const rail=controls.previousElementSibling;const buttons=controls.querySelectorAll('[data-slide]');const sync=()=>{buttons[0].disabled=rail.scrollLeft<5;buttons[1].disabled=rail.scrollLeft+rail.clientWidth>=rail.scrollWidth-5};buttons.forEach(button=>button.addEventListener('click',()=>rail.scrollBy({left:Number(button.dataset.slide)*(rail.querySelector('.practice-card').getBoundingClientRect().width+24),behavior:reducedMotion.matches?'instant':'smooth'})));rail.addEventListener('scroll',sync,{passive:true});window.addEventListener('resize',sync);sync()});

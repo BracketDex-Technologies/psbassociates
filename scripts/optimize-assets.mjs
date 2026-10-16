@@ -46,7 +46,7 @@ export function optimizePageHtml(html, current, { styles, portraits }) {
     const avatar = attributes.includes('width="52"');
     const sizes = avatar ? '52px' : html.includes('class="partner-profile"')
       ? '(max-width: 650px) calc(100vw - 40px), (max-width: 900px) 45vw, 440px'
-      : '(max-width: 650px) 94px, (max-width: 1100px) 30vw, 400px';
+      : '(max-width: 650px) min(76vw, 280px), (max-width: 1100px) 30vw, 400px';
     const dimensions = /\bwidth=/.test(attributes) ? '' : ` width="${width}" height="${height}"`;
     return `<img src="/assets/${name}-${avatar ? 128 : 480}.webp" srcset="${[128, 256, 480].map(w => `/assets/${name}-${w}.webp ${w}w`).join(', ')}, /assets/${name}.webp ${width}w" sizes="${sizes}"${attributes}${dimensions} decoding="async">`;
   });
