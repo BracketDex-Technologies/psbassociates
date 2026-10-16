@@ -51,6 +51,11 @@ export function contactPage({ offices, practices }) {
           <p id="contact-privacy-note" class="sr-only">Please avoid confidential documents or sensitive financial information.</p>
           <p id="form-status" role="status" aria-live="polite"></p>
         </form>
+        <ul class="contact-details" aria-label="Ways to contact the firm">
+          <li><span class="contact-icon-badge">${icon('mail')}</span><div><p class="contact-detail-label">Write to us</p><a class="contact-email" href="mailto:office@psbassociates.in">office@psbassociates.in</a></div></li>
+          <li><span class="contact-icon-badge">${icon('clock')}</span><div><p class="contact-detail-label">Working hours</p><p class="contact-detail-value">Monday–Saturday</p><p class="contact-hours">10:30 AM–7:30 PM IST</p></div></li>
+          <li><span class="contact-icon-badge">${icon('phone')}</span><div><p class="contact-detail-label">Head office</p><div class="contact-phone-links">${phoneLinks(offices[0].phones)}</div></div></li>
+        </ul>
       </div>
     </section>
 
