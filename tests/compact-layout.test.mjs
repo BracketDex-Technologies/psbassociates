@@ -14,8 +14,11 @@ test('contact introduction includes direct contact details beside the enquiry fo
   assert.ok(markup.indexOf('</form>') < markup.indexOf('class="contact-details"'), 'Phone reading order keeps the form before supporting details');
 });
 
-test('every industry remains available through a closed, native disclosure', () => {
-  assert.equal((industrySection.match(/class="sector-disclosure"/g) || []).length, industries.length);
+test('thirteen sectors fit twelve closed boxes with agriculture grouped under manufacturing', () => {
+  assert.equal((industrySection.match(/class="sector-disclosure"/g) || []).length, 12);
+  const grouped = industrySection.match(/<details class="sector-disclosure" data-sector-group="production">([\s\S]*?)<\/details>/)?.[1];
+  assert.ok(grouped?.includes('<h3>Manufacturing & FMCG</h3>'));
+  assert.ok(grouped?.includes('<h3>Agriculture & Agri-Tech</h3>'));
   assert.doesNotMatch(industrySection, /<details[^>]*\bopen\b/);
   for (const { name, description } of industries) {
     assert.ok(industrySection.includes(name));

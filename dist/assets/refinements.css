@@ -446,6 +446,7 @@ h1, h2, h3 {
   border-bottom: 1px solid var(--line);
 }
 .sector-disclosure[open]{background:var(--pale)}
+.sector-disclosure[data-sector-group] h3{padding:0 16px 8px;margin:0;font-size:1rem;line-height:1.4;letter-spacing:-.02em;color:var(--navy)}
 .sector-disclosure summary {
   font-family: Manrope, Arial, sans-serif;
   font-weight: 600;
