@@ -43,5 +43,5 @@ export const insights = [
 ];
 
 export function insightCards() {
-  return `<section class="wrap insight-section"><div class="section-head"><div><span class="eyebrow">PRACTICAL INSIGHTS</span><h2>Understand the detail.<br>See the next step.</h2></div><p>Practical reading for business owners and finance teams.</p></div><div class="insight-grid">${insights.map(article => `<a class="insight-card" href="/resources/${article.slug}/"><span class="eyebrow">${article.category}</span><h3>${article.title}</h3><p>${article.description}</p><span class="card-link">Read insight <span aria-hidden="true">↗</span></span></a>`).join('')}</div></section>`;
+  return `<section class="insight-section"><div class="section-head"><div><span class="eyebrow">PRACTICAL INSIGHTS</span><h2>Understand the detail.<br>See the next step.</h2></div><p>Practical reading for business owners and finance teams.</p></div><div class="insight-grid">${insights.map(article => `<a class="insight-card" href="/resources/${article.slug}/"><span class="eyebrow">${article.category}</span><h3>${article.title}</h3><p>${article.description}</p><span class="card-link">Read insight <span aria-hidden="true">↗</span></span></a>`).join('')}</div></section>`;
 }

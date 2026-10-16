@@ -35,6 +35,15 @@ test('all thirteen requested industries retain their full descriptions', () => {
   }
 });
 
+test('services FAQ uses a single shared-width container, not a double inset', () => {
+  const services = fs.readFileSync('dist/services/index.html', 'utf8');
+  assert.match(services, /<section class="faq-banner"><section class="wrap faq-section"/);
+  assert.doesNotMatch(services, /<section class="faq-banner"><div class="wrap">/);
+  const home = fs.readFileSync('dist/index.html', 'utf8');
+  assert.match(home, /<section class="insight-section">/);
+  assert.doesNotMatch(home, /class="wrap insight-section"/);
+});
+
 test('Hingoli phone and WhatsApp use the updated number, including structured data', () => {
   const contact = fs.readFileSync('dist/contact/index.html', 'utf8');
   const hingoli = contact.match(/<article class="contact-office" id="office-hingoli">([\s\S]*?)<\/article>/)?.[1];
