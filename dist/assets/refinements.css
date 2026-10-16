@@ -97,8 +97,9 @@ header a:focus-visible,header .menu-toggle:focus-visible{outline-color:#886530}
  .footer-links a,.footer-grid>div:last-child>a{font-size:.875rem}
  .footer-grid>div:last-child>p{font-size:.875rem}
  .footer-bottom>p{font-size:.8125rem;line-height:1.55}
- .floating-whatsapp{right:14px;width:48px;height:48px}
+ .floating-whatsapp{right:calc(14px + env(safe-area-inset-right));bottom:calc(16px + env(safe-area-inset-bottom));width:52px;height:52px;z-index:30;touch-action:manipulation}
  .floating-whatsapp img{width:28px;height:28px}
+ .page-home footer{padding-bottom:calc(84px + env(safe-area-inset-bottom))}
  :is(.page-contact,.page-careers) .contact-hero-inner{padding-top:24px;padding-bottom:28px}
  .page-contact .contact-hero-inner{row-gap:20px}
  .page-contact .contact-introduction h1 br{display:none}

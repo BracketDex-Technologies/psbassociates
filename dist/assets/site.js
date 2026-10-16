@@ -45,8 +45,9 @@ document.querySelectorAll('[data-updates].compact .updates-header>div').forEach(
 });
 if(window.gsap&&'IntersectionObserver' in window){
  const gsap=window.gsap;
- gsap.matchMedia().add('(prefers-reduced-motion: no-preference)',()=>{
-  const phoneMotion=phoneLayout.matches;
+ gsap.matchMedia().add({motion:'(prefers-reduced-motion: no-preference)',phone:'(max-width: 650px)'},context=>{
+  if(!context.conditions.motion)return;
+  const phoneMotion=context.conditions.phone;
   const motions=new Map();
   const active=new Set();
   const register=(element,timeline,loop=null)=>{
@@ -57,22 +58,17 @@ if(window.gsap&&'IntersectionObserver' in window){
    const card=element.matches('.person,.practice-card,.specialist-card,.resource,.sector-disclosure');
    const index=card?[...element.parentElement.children].indexOf(element)%3:0;
    const timeline=gsap.timeline({paused:true}).fromTo(element,
-    {y:phoneMotion?8:card?18:14,opacity:phoneMotion ? .7 : .35},
-    {y:0,opacity:1,duration:phoneMotion ? .35 : .6,delay:index*(phoneMotion ? .04 : .07),ease:'power2.out',immediateRender:false,clearProps:'transform,opacity'});
+    {y:phoneMotion?12:card?18:14,opacity:phoneMotion ? .5 : .35},
+    {y:0,opacity:1,duration:phoneMotion ? .5 : .6,delay:index*(phoneMotion ? .05 : .07),ease:'power2.out',immediateRender:false,clearProps:'transform,opacity'});
    register(element,timeline);
   });
   document.querySelectorAll('[data-animated-stats]').forEach(strip=>{
    const timeline=gsap.timeline({paused:true});
-   if(phoneMotion){
-    timeline.fromTo(strip,{opacity:.7},{opacity:1,duration:.35,immediateRender:false,clearProps:'opacity'});
-    register(strip,timeline);
-    return;
-   }
    strip.querySelectorAll('strong[data-count]').forEach((number,index)=>{
     const target=Number(number.dataset.count),counter={value:0};
     const format=value=>String(Math.round(value)).padStart(Number(number.dataset.pad||0),'0')+(number.dataset.suffix||'');
     timeline.fromTo(counter,{value:Number(number.dataset.start||0)},
-     {value:target,duration:1.15,ease:'power2.out',immediateRender:false,
+     {value:target,duration:phoneMotion ? .85 : 1.15,ease:'power2.out',immediateRender:false,
       onUpdate:()=>{number.textContent=format(counter.value)},
       onComplete:()=>{number.textContent=format(target)}},index*.08);
    });
@@ -82,7 +78,7 @@ if(window.gsap&&'IntersectionObserver' in window){
    const timeline=gsap.timeline({paused:true}).fromTo(panel,
     {y:phoneMotion?8:16,opacity:.5},{y:0,opacity:1,duration:phoneMotion ? .35 : .65,ease:'power2.out',immediateRender:false,clearProps:'transform,opacity'});
    const sweep=panel.querySelector('.radar-sweep');
-   const loop=sweep&&!phoneMotion?gsap.to(sweep,{rotation:360,duration:5,ease:'none',repeat:-1,paused:true}):null;
+   const loop=sweep?gsap.to(sweep,{rotation:360,duration:phoneMotion ? 6 : 5,ease:'none',repeat:-1,paused:true}):null;
    register(panel,timeline,loop);
   });
   const observer=new IntersectionObserver(entries=>{
@@ -136,11 +132,17 @@ if(window.gsap&&'IntersectionObserver' in window){
   };
  });
 }
-// Keep the floating contact action clear of the footer and other contact controls.
+// Never disable the phone's primary contact shortcut during scrolling.
+// Desktop retains overlap protection; phones reserve footer space in CSS.
 const floatingContact=document.querySelector('.floating-whatsapp');
 const contactObstacles=[...document.querySelectorAll('.contact-band,footer,.people-section .profile-link,.home-actions,.home-hero-bottom a,.home-secondary,.home-partners,.home-briefing .updates-panel')];
 const updateFloatingContact=()=>{
  if(!floatingContact)return;
+ if(phoneLayout.matches){
+  floatingContact.toggleAttribute('data-obscured',false);
+  floatingContact.inert=false;
+  return;
+ }
  const button=floatingContact.getBoundingClientRect();
  const obscured=document.activeElement!==floatingContact&&contactObstacles.some(element=>{
   const rect=element.getBoundingClientRect();
@@ -150,6 +152,7 @@ const updateFloatingContact=()=>{
  floatingContact.inert=obscured;
 };
 window.addEventListener('resize',updateFloatingContact,{passive:true});
+phoneLayout.addEventListener('change',updateFloatingContact);
 document.addEventListener('focusin',updateFloatingContact);
 document.addEventListener('focusout',()=>requestAnimationFrame(updateFloatingContact));
 document.addEventListener('toggle',updateFloatingContact,true);
