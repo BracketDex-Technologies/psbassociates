@@ -63,6 +63,18 @@ test('phone services sections avoid stacked desktop whitespace', () => {
   assert.match(compactSpacing, /\.page-services \.faq-banner\{padding:0 0 24px\}/);
 });
 
+test('shared phone spacing covers narrative, profile, form and detail page layouts', () => {
+  const css = fs.readFileSync('dist/assets/refinements.css', 'utf8');
+  const phoneRules = css.slice(css.indexOf('/* Phone section rhythm:'));
+  assert.match(phoneRules, /@media\(max-width:650px\)/);
+  assert.match(phoneRules, /--phone-section-space:24px/);
+  for (const selector of ['.about-narrative-section', '.principles-section', '.detail-page-section', '.partners-overview-section', '.contact-offices-section', '.partner-profile-banner .partner-profile', '.contact-hero-inner', '.legal', '.insight-article', '.home-briefing']) {
+    assert.ok(phoneRules.includes(selector), `${selector} must use the shared phone rhythm`);
+  }
+  assert.match(phoneRules, /padding-top:0;padding-bottom:0/);
+  assert.match(phoneRules, /\.contact-band\{padding:var\(--phone-section-space\) 0;margin:0\}/);
+});
+
 test('Hingoli phone and WhatsApp use the updated number, including structured data', () => {
   const contact = fs.readFileSync('dist/contact/index.html', 'utf8');
   const hingoli = contact.match(/<article class="contact-office" id="office-hingoli">([\s\S]*?)<\/article>/)?.[1];

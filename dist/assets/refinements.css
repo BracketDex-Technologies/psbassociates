@@ -624,3 +624,26 @@ footer {
  .people-carousel-controls [data-people-position]{min-width:32px;text-align:center;font-variant-numeric:tabular-nums}
 }
 @media(prefers-reduced-motion:reduce){.people-grid{scroll-behavior:auto!important}}
+
+/* Phone section rhythm: one outer inset, not an outer + inner stack. */
+@media(max-width:650px){
+ :root{--phone-section-space:24px;--phone-content-gap:16px}
+ main>:is(.about-narrative-section,.principles-section,.detail-page-section,.partners-overview-section,.contact-offices-section){padding:var(--phone-section-space) 0}
+ .page-about .about-narrative-section .about-body,
+ .principles-section .firm-principles,
+ .detail-page-section .detail-layout,
+ .partners-overview-section .partners-index,
+ .contact-offices-section .contact-offices{padding-top:0;padding-bottom:0}
+ .page-about .about-body{row-gap:20px}
+ .principles-section .three-col{margin-top:20px;gap:var(--phone-content-gap)}
+ .principles-section .three-col article{padding:20px}
+ .principles-section .three-col article h3{margin-bottom:10px}
+ .page-home .people-section,.home-briefing{padding:var(--phone-section-space) 0}
+ .firm-overview-section{padding-bottom:0}
+ .page-intro,.partner-profile-banner .partner-profile,.legal,.insight-article{padding-top:var(--phone-section-space);padding-bottom:var(--phone-section-space)}
+ :is(.page-contact,.page-careers) .contact-hero-inner{padding-top:var(--phone-section-space);padding-bottom:var(--phone-section-space)}
+ .briefing-more .insight-section{padding-top:var(--phone-section-space);padding-bottom:0}
+ .insight-article section{margin-bottom:var(--phone-section-space)}
+ .insight-article section:last-child{margin-bottom:0}
+ .contact-band{padding:var(--phone-section-space) 0;margin:0}
+}
