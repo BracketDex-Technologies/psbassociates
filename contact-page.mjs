@@ -14,7 +14,7 @@ export function contactPage({ offices, practices }) {
       <div class="wrap contact-hero-inner">
         <div class="contact-introduction">
           <span class="eyebrow contact-eyebrow">Contact &amp; offices</span>
-          <h1 id="contact-title">A conversation <br>starts with <br>understanding.</h1>
+          <h1 id="contact-title">A conversation <br>starts with <br><em>understanding.</em></h1>
 
 
         </div>
@@ -59,23 +59,25 @@ export function contactPage({ offices, practices }) {
       </div>
     </section>
 
-    <section class="wrap contact-offices" aria-labelledby="offices-title">
-      <div class="contact-offices-heading">
-        <span class="eyebrow contact-eyebrow">Our offices</span>
-        <h2 id="offices-title">Visit our offices.</h2>
-        <p>We are available at the following locations.</p>
-      </div>
-      <div class="contact-office-grid">
-        ${offices.map(office => `<article class="contact-office" id="office-${office.city.toLowerCase().replaceAll(' ', '-')}">
-          <span class="eyebrow">${office.type}</span>
-          <h3>${escapeHtml(office.city)}</h3>
-          <div class="contact-address">${icon('map-pin')}<address>${office.address}</address></div>
-          ${office.phones.length ? `<div class="contact-office-phones">${icon('phone')}<div class="contact-phone-links">${phoneLinks(office.phones)}</div></div>` : ''}
-          <a class="contact-directions" href="${office.directions || `https://www.google.com/maps/search/?api=1&amp;query=${encodeURIComponent(office.map)}`}" target="_blank" rel="noopener">View directions${icon('arrow-right')}<span class="sr-only"> to the ${escapeHtml(office.city)} office</span></a>
-          <details class="office-map" data-responsive-details open><summary>View map<span class="sr-only"> of the ${escapeHtml(office.city)} office</span></summary>
-          <iframe title="Map of ${escapeHtml(office.city)} office area" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=${encodeURIComponent(office.map)}&amp;output=embed"></iframe>
-          </details>
-        </article>`).join('\n')}
+    <section class="contact-offices-section" aria-labelledby="offices-title">
+      <div class="wrap contact-offices">
+        <div class="contact-offices-heading">
+          <span class="eyebrow contact-eyebrow">Our offices</span>
+          <h2 id="offices-title">Visit our offices.</h2>
+          <p>We are available at the following locations.</p>
+        </div>
+        <div class="contact-office-grid">
+          ${offices.map(office => `<article class="contact-office" id="office-${office.city.toLowerCase().replaceAll(' ', '-')}">
+            <span class="eyebrow">${office.type}</span>
+            <h3>${escapeHtml(office.city)}</h3>
+            <div class="contact-address">${icon('map-pin')}<address>${office.address}</address></div>
+            ${office.phones.length ? `<div class="contact-office-phones">${icon('phone')}<div class="contact-phone-links">${phoneLinks(office.phones)}</div></div>` : ''}
+            <a class="contact-directions" href="${office.directions || `https://www.google.com/maps/search/?api=1&amp;query=${encodeURIComponent(office.map)}`}" target="_blank" rel="noopener">View directions${icon('arrow-right')}<span class="sr-only"> to the ${escapeHtml(office.city)} office</span></a>
+            <details class="office-map" data-responsive-details open><summary>View map<span class="sr-only"> of the ${escapeHtml(office.city)} office</span></summary>
+            <iframe title="Map of ${escapeHtml(office.city)} office area" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=${encodeURIComponent(office.map)}&amp;output=embed"></iframe>
+            </details>
+          </article>`).join('\n')}
+        </div>
       </div>
     </section>`;
 }

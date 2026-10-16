@@ -1,12 +1,12 @@
 /* Shared contact and careers palette, grid and form presentation. */
 :is(.page-contact,.page-careers) {
-  --contact-gold: #a68043;
-  --contact-line: #e1e4e6;
-  background: #fff;
+  --contact-gold: #cca973;
+  --contact-line: #dedad0;
+  background: #ffffff;
 }
 
 :is(.page-contact,.page-careers) main .wrap { width: min(1304px, calc(100% - 96px)); }
-.contact-hero { background: #faf9f6; }
+.contact-hero { background: #f6f4ef; border-bottom: 1px solid #d9dad2; }
 .contact-hero-inner {
   display: grid;
   grid-template-columns: minmax(0, .84fr) minmax(0, 1.16fr);
@@ -43,7 +43,7 @@
   border-top: 1px solid var(--contact-line);
   padding: 28px 0;
 }
-.contact-icon-badge { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: #f0eadf; color: var(--contact-gold); }
+.contact-icon-badge { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: #f6f4ef; color: var(--contact-gold); }
 .contact-icon { display: inline-block; width: 23px; height: 23px; flex-shrink: 0; background: currentColor; mask: var(--contact-icon) center / contain no-repeat; }
 .contact-icon-mail { --contact-icon: url('/assets/icons/feather/mail.svg'); }
 .contact-icon-clock { --contact-icon: url('/assets/icons/feather/clock.svg'); }
@@ -102,13 +102,13 @@
 .contact-service-options { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px 12px; }
 .contact-form .contact-service-option { display: flex; align-items: center; gap: 12px; min-height: 57px; padding: 12px 16px; border: 1px solid #cbd5dd; border-radius: 6px; cursor: pointer; font-size: .8125rem; line-height: 1.45; transition: border-color .15s, background .15s, color .15s; }
 .contact-service-option input[type='checkbox'], .contact-service-option input[type='radio'] { appearance: auto; display: block; width: 18px; height: 18px; flex: 0 0 18px; padding: 0; margin: 0; accent-color: var(--navy); cursor: pointer; }
-.contact-service-option:hover { background: #f4f6f7; border-color: #8298a9; }
+.contact-service-option:hover { background: #f6f4ef; border-color: #8298a9; }
 .contact-service-option:has(input:checked) { background: var(--navy); color: #fff; border-color: var(--navy); }
 .contact-service-option:has(input:checked) input { accent-color: #fff; }
 .contact-service-option:has(input:focus-visible) { outline: 2px solid #a68043; outline-offset: 3px; }
 .contact-service-option input:focus-visible { outline: none; }
 .contact-service-summary { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-.contact-service-breadcrumb { display: inline-flex; align-items: center; gap: 7px; padding: 6px 10px; border-radius: 999px; background: #edf2f5; color: var(--navy); font-size: .75rem; line-height: 1.35; }
+.contact-service-breadcrumb { display: inline-flex; align-items: center; gap: 7px; padding: 6px 10px; border-radius: 999px; background: #f6f4ef; color: var(--navy); font-size: .75rem; line-height: 1.35; }
 .contact-service-breadcrumb span { color: #607487; }
 .contact-service-breadcrumb b { color: #a68043; font-size: 1rem; font-weight: 500; }
 .contact-field-error { margin-top: 8px; color: #9b3d32; font-size: .8125rem; }
@@ -140,7 +140,7 @@
 .contact-office-phones > .contact-icon { margin-top: 7px; }
 .contact-directions { display: inline-flex; align-items: center; gap: 16px; border-bottom: 1px solid #b48a4d; padding-bottom: 4px; padding-top: 18px; margin-top: auto; font-size: .9375rem; font-weight: 500; }
 .contact-directions .contact-icon { width: 18px; height: 18px; }
-.contact-office iframe { display: block; width: 100%; height: 218px; border: 1px solid #dfe5e9; border-radius: 6px; background: #f2f6f9; margin-top: 20px; }
+.contact-office iframe { display: block; width: 100%; height: 218px; border: 1px solid #dfe5e9; border-radius: 6px; background: #f6f4ef; margin-top: 20px; }
 
 @media (max-width: 1150px) {
   .contact-hero-inner { gap: 30px; padding-top: 44px; padding-bottom: 44px; }

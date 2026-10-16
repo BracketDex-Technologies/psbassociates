@@ -1,5 +1,5 @@
 /* Final responsive refinements, shared across the firm website. */
-:root{--muted:#536779;--header-height:95px}
+:root{--navy:#102d40;--deep:#091c2d;--gold:#cca973;--gold-accent:#94703c;--ink:#132e42;--muted:#5a6d7c;--pale:#f6f4ef;--pale-surface:#ffffff;--white:#ffffff;--line:#dedad0;--header-height:95px}
 .home-hero h1,.page-intro h1,.partner-profile h1,.page-careers .career-application-copy h1,:is(.page-contact,.page-careers) .contact-introduction h1{font-size:var(--page-title-size);font-weight:500;line-height:1.12}
 .home-partners small,.home-hero-bottom,.briefing-sources{color:var(--muted)}
 .person-meta>span,.person-meta>p{color:#536779}
@@ -43,7 +43,7 @@ header a:focus-visible,header .menu-toggle:focus-visible{outline-color:#886530}
  header .nav-identities{min-height:86px}
  header .menu-toggle{display:flex;align-items:center;justify-content:center;width:44px;height:44px;padding:8px;font-size:0;flex-shrink:0}
  header .menu-toggle span{font-size:1.5rem}
- header nav{display:none;position:absolute;top:100%;left:0;right:0;width:100%;flex-basis:auto;flex-direction:column;align-items:stretch;gap:0;max-height:calc(100dvh - var(--header-height));overflow-y:auto;padding:12px 24px 18px;background:#fcfdff;border:0;border-bottom:1px solid var(--line);border-radius:0;box-shadow:0 12px 24px #102b4314;font-size:.9375rem}
+ header nav{display:none;position:absolute;top:100%;left:0;right:0;width:100%;flex-basis:auto;flex-direction:column;align-items:stretch;gap:0;max-height:calc(100dvh - var(--header-height));overflow-y:auto;padding:12px 24px 18px;background:#ffffff;border:0;border-bottom:1px solid var(--line);border-radius:0;box-shadow:0 12px 24px #102b4314;font-size:.9375rem}
  header nav.open{display:flex}
  header nav>a{min-height:44px;padding:10px 0}
  header nav>.nav-contact{padding:12px 18px;margin-top:8px;text-align:center}
@@ -165,9 +165,422 @@ header a:focus-visible,header .menu-toggle:focus-visible{outline-color:#886530}
 /* Expanded descriptions & career cards */
 .practice-overview{font-size:1.05rem;line-height:1.75;color:var(--muted);margin-top:16px;margin-bottom:32px}
 .career-roles{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:24px 0 16px}
-.career-role-item{background:#f8fafc;border:1px solid var(--line);border-radius:6px;padding:16px 18px}
+.career-role-item{background:#f6f4ef;border:1px solid var(--line);border-radius:6px;padding:16px 18px}
 .career-role-item h3{font-size:1rem;color:var(--navy);margin-bottom:6px;font-weight:600}
 .career-role-item p{font-size:.875rem;line-height:1.6;color:var(--muted);margin:0}
 @media(max-width:650px){.career-roles{grid-template-columns:1fr;gap:12px;margin:16px 0}}
 
+/* ==========================================================================
+   HOMEPAGE THEME UNIFICATION (COLORS & FONTS ACROSS EVERY PAGE)
+   ========================================================================== */
+body, :is(.page-contact,.page-careers) {
+  background: #ffffff !important;
+  color: var(--ink);
+  font-family: 'DM Sans', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
 
+header {
+  background: #ffffff !important;
+  border-bottom: 1px solid var(--line);
+}
+.brand div {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-weight: 700;
+  color: var(--ink);
+}
+.brand small {
+  font-family: 'DM Sans', Arial, sans-serif;
+  color: var(--muted);
+  letter-spacing: 0.15em;
+}
+nav a {
+  font-family: 'DM Sans', Arial, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+nav a:hover {
+  color: var(--gold-accent);
+}
+nav a[aria-current=page]:after {
+  background: var(--gold);
+}
+header nav .nav-contact, .nav-contact {
+  background: #cca973 !important;
+  border: 1px solid #c29d63 !important;
+  border-radius: 4px !important;
+  color: #10273b !important;
+  font-weight: 600 !important;
+  padding: 10px 20px !important;
+  transition: background 0.2s, transform 0.2s !important;
+  box-shadow: none !important;
+}
+header nav .nav-contact:hover, .nav-contact:hover {
+  background: #d8b885 !important;
+  color: #10273b !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Page Intro Hero Banner matching Homepage Hero */
+.page-intro-banner {
+  background: #ffffff;
+  border-bottom: 1px solid #d9dad2;
+  position: relative;
+  overflow: hidden;
+}
+.page-intro {
+  padding: 64px 0 54px;
+  border-bottom: 0;
+}
+.page-intro-banner:after {
+  content: '';
+  position: absolute;
+  right: 4%;
+  bottom: -40px;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  border: 1px solid rgba(197, 177, 133, 0.08);
+  pointer-events: none;
+}
+.page-intro h1, .contact-introduction h1 {
+  font-family: Manrope, Arial, sans-serif;
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.055em;
+  color: var(--ink);
+}
+.page-intro h1 em, .contact-introduction h1 em, .home-hero h1 em, .partner-profile h1 em, h1 em, h2 em, h3 em {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  color: var(--gold-accent);
+}
+.page-intro > p, .contact-introduction > p {
+  font-family: 'DM Sans', Arial, sans-serif;
+  font-size: 1.08rem;
+  line-height: 1.8;
+  max-width: 660px;
+  margin-top: 24px;
+  color: var(--muted);
+}
+.page-intro .eyebrow, .contact-eyebrow {
+  color: #886739;
+  letter-spacing: 0.17em;
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+/* All headings across all pages */
+h1, h2, h3 {
+  font-family: Manrope, Arial, sans-serif;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+}
+.perspective-card h2,
+.perspective-card h3,
+.contact-band h2,
+.contact-band h3 {
+  color: #ffffff !important;
+}
+.practice-card:first-child p {
+  color: var(--muted) !important;
+}
+
+/* ==========================================================================
+   EDGE-TO-EDGE ALTERNATING SECTIONS (WHITE & ALTERNATIVE WARM CREAM)
+   ========================================================================== */
+
+/* White is the main canvas; cream is a supporting surface, not every section. */
+.page-intro-banner,
+.contact-hero,
+.partner-profile-banner,
+.firm-overview-section,
+.principles-section,
+.industries-section,
+.values-section,
+.expertise-section {
+  background: #ffffff !important;
+  border-top: 0;
+  border-bottom: 0;
+}
+.contact-hero,.principles-section{background:var(--pale)!important}
+.page-intro-banner{border-bottom:1px solid var(--line)}
+.partner-profile-banner{border-bottom:1px solid var(--line)}
+.page-intro-banner,
+.contact-hero,
+.partner-profile-banner {
+  border-top: 0;
+}
+.firm-overview-section {
+  padding-bottom: 10px;
+}
+.firm-overview-section .firm-strip {
+  background: transparent !important;
+  border-bottom: 1px solid var(--line);
+}
+.firm-overview-section .firm-section {
+  background: transparent !important;
+  border-bottom: 0;
+}
+.principles-section {
+  padding: 85px 0 95px;
+}
+.principles-section .firm-principles {
+  padding: 0;
+}
+.principles-section .three-col {
+  margin-top: 40px;
+}
+.principles-section .three-col article {
+  background: #ffffff !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 8px;
+  padding: 34px 30px;
+  box-shadow: 0 4px 18px rgba(16, 45, 64, 0.04);
+}
+.principles-section .three-col article h3 {
+  font-size: 1.25rem;
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+.principles-section .three-col article p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+.industries-section {
+  padding: 85px 0 95px;
+}
+.industries-section .merged-industries {
+  padding: 0;
+}
+
+/* Alternating Section: Pure White (#ffffff) */
+.about-narrative-section,
+.services-index-section,
+.detail-page-section,
+.partners-overview-section,
+.contact-offices-section,
+.faq-banner,
+.people-section,
+.home-briefing {
+  background: #ffffff !important;
+}
+.about-narrative-section {
+  padding: 20px 0;
+}
+.services-index-section {
+  padding: 20px 0;
+}
+.detail-page-section {
+  padding: 10px 0 40px;
+}
+.partners-overview-section {
+  padding: 20px 0 50px;
+}
+.partners-overview-section .people-grid .person {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 22px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.partners-overview-section .people-grid .person:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(16, 45, 64, 0.06);
+}
+.contact-offices-section {
+  padding: 20px 0;
+}
+.faq-banner {
+  padding: 20px 0 40px;
+}
+
+.firm-strip > div {
+  border-color: var(--line);
+}
+.firm-strip strong {
+  color: var(--ink);
+  font-family: Manrope, sans-serif;
+}
+.lead {
+  color: var(--ink);
+  font-family: 'DM Sans', Arial, sans-serif;
+}
+
+/* Cards & disclosures */
+.service-index .practice-card {
+  background: #ffffff !important;
+  border: 1px solid var(--line) !important;
+  border-top: 2px solid var(--gold) !important;
+  border-radius: 8px;
+}
+.service-index .practice-card:first-child {
+  background: #ffffff !important;
+  color: var(--ink);
+}
+.service-index .practice-card h3{color:var(--ink)!important}
+.service-index .practice-card p{color:var(--muted)!important}
+.service-index .practice-card .number,.service-index .practice-card .service-icon,.service-index .practice-card .card-link{color:var(--gold-accent)!important}
+.service-index .practice-card:hover{background:var(--pale)!important;border-color:var(--gold)!important}
+.service-index .practice-card .practice-tags span{background:var(--pale)!important;color:var(--navy)!important}
+.insight-card {
+  background: #ffffff !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 6px;
+}
+.career-role-item {
+  background: #f6f4ef !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 6px;
+}
+.note, .resource {
+  background: #ffffff !important;
+  border: 1px solid var(--line) !important;
+}
+.sector-disclosure {
+  background:#ffffff;
+  border-bottom: 1px solid var(--line);
+}
+.sector-disclosure[open]{background:var(--pale)}
+.sector-disclosure summary {
+  font-family: Manrope, Arial, sans-serif;
+  font-weight: 600;
+  color: var(--ink);
+  transition: color 0.2s;
+}
+.sector-disclosure summary:hover {
+  color: var(--gold-accent);
+}
+.sector-disclosure p {
+  color: var(--muted);
+  font-family: 'DM Sans', Arial, sans-serif;
+}
+
+/* Forms */
+.contact-form {
+  background: #ffffff !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 24px rgba(16, 45, 64, 0.05) !important;
+}
+input, textarea, select {
+  border: 1px solid #d5d1c8 !important;
+  background: #ffffff !important;
+  color: var(--ink) !important;
+  border-radius: 4px !important;
+}
+input:focus, textarea:focus, select:focus {
+  outline: 2px solid var(--gold) !important;
+  border-color: var(--gold) !important;
+}
+.contact-icon-badge {
+  background: #ffffff !important;
+  color: #a68043 !important;
+}
+.contact-phone-links {
+  color: var(--navy) !important;
+}
+
+/* Buttons */
+.button.navy, .contact-submit {
+  background: #102d40 !important;
+  color: #ffffff !important;
+  border-radius: 4px !important;
+}
+.button.navy:hover, .contact-submit:hover:not(:disabled) {
+  background: #1a425c !important;
+}
+.button.gold {
+  background: #cca973 !important;
+  color: #10273b !important;
+  font-weight: 600 !important;
+  border-radius: 4px !important;
+}
+.button.gold:hover {
+  background: #d8b885 !important;
+}
+.text-link {
+  color: var(--ink);
+  border-bottom-color: #cca973;
+}
+.text-link:hover {
+  color: var(--gold-accent);
+  border-bottom-color: var(--gold-accent);
+}
+
+/* Detail page layout (Audit, Tax, etc.) */
+.detail-layout aside > a:not(.button) {
+  border-bottom-color: var(--line);
+  color: var(--ink);
+}
+.detail-layout aside a[aria-current=page] {
+  color: var(--gold-accent) !important;
+  font-weight: 600;
+}
+.service-list > div {
+  border-bottom-color: var(--line);
+}
+.service-list span {
+  color: var(--gold-accent);
+}
+
+/* Partner Profiles */
+.partner-profile-banner {
+  background: #f6f4ef;
+  border-bottom: 1px solid #d9dad2;
+}
+.partner-profile h1 {
+  color: var(--ink);
+}
+.partner-profile .qualification {
+  color: var(--gold-accent);
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.profile-rule {
+  background: var(--line);
+}
+
+/* Footer */
+footer {
+  background: #f6f4ef !important;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+}
+.footer-grid h3 {
+  color: var(--ink);
+  font-family: Manrope, Arial, sans-serif;
+  letter-spacing: 0.1em;
+}
+.footer-grid > div > a:not(.brand) {
+  color: var(--muted);
+}
+.footer-grid a:hover {
+  color: var(--gold-accent);
+}
+.footer-bottom {
+  border-top-color: var(--line);
+}
+.contact-band {
+  background: #102d40 !important;
+  margin: 0;
+  border-radius: 0;
+}
+
+/* Keep the existing hero palette while reducing competing decorative colour. */
+.perspective-card{background:var(--navy);box-shadow:0 12px 28px rgba(16,45,64,.1)}
+.perspective-heading>span,.perspective-practices small,.perspective-practices b{color:var(--gold)}
+.perspective-practices a{border-color:rgba(255,255,255,.14)}
+.home-hero{background:var(--pale)}
+.home-hero h1 em{color:var(--gold-accent)}
+.home-briefing .updates-panel,.updates-panel.full{border-color:var(--line);box-shadow:0 6px 24px rgba(16,45,64,.04)}
+.updates-header,.feed-tabs,.feed-status,.source-health{background:var(--pale)}
+.feed-footer,.feed-list,.news-item{background:#ffffff}
+.category-badge,.category-badge.gst,.category-badge.income-tax,.category-badge.icai,.category-badge.rbi{background:var(--pale);color:var(--navy)}
+.feed-tabs button[aria-pressed='true']{background:var(--navy);color:#ffffff}
+.radar-mark{border-color:var(--gold);background:var(--pale)}
+.radar-sweep{background:conic-gradient(from 0deg,transparent 0deg,transparent 275deg,rgba(204,169,115,.2) 350deg,rgba(204,169,115,.6) 360deg)}
