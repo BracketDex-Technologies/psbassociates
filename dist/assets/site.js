@@ -38,7 +38,8 @@ syncPhoneDetails();
 
 // Short mobile previews for long editorial copy, without hiding desktop text.
 // Native disclosures, forms and legal notices keep their existing behaviour.
-const mobileCopySelectors='.about-introduction>p,.about-continuation>p,.firm-principles article>p,.practice-overview,.partner-profile .lead,.partner-profile .partner-experience,.detail-layout>div>p:not(.legal-reference),.page-intro>p';
+// The firm narrative stays fully visible on every screen size.
+const mobileCopySelectors='.firm-principles article>p,.practice-overview,.partner-profile .lead,.partner-profile .partner-experience,.detail-layout>div>p:not(.legal-reference),.page-intro>p';
 document.querySelectorAll(mobileCopySelectors).forEach((paragraph,index)=>{
  const text=paragraph.textContent;
  if(text.length<300||paragraph.children.length||paragraph.closest('details'))return;

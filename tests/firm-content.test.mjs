@@ -10,6 +10,11 @@ test('The Firm shows the full introduction and all three professional principles
   assert.ok(narrative, 'Full firm introduction must be present');
   assert.doesNotMatch(narrative, /<details|<summary/);
   assert.doesNotMatch(about, /View more about our practice/);
+  const client = fs.readFileSync('dist/assets/site.js', 'utf8');
+  const mobileSelectors = client.match(/const mobileCopySelectors='([^']+)'/)?.[1];
+  assert.ok(mobileSelectors);
+  assert.doesNotMatch(mobileSelectors, /about-introduction|about-continuation|about-body|about-narrative/,
+    'The full firm narrative must not be collapsed by mobile JavaScript');
   assert.match(narrative, /The firm provides services to clients in India and abroad/);
   assert.match(narrative, /Our practice serves clients in India and abroad/);
   assert.match(narrative, /<div class="about-introduction">/);

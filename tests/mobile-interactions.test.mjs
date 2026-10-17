@@ -33,7 +33,7 @@ function phoneHarness({ reduced = false, withCarousel = false, copyText = null, 
   const document = { hidden: false, activeElement: null, body: {}, documentElement: { scrollHeight: 3000 },
     querySelector: selector => selector === '.floating-whatsapp' ? button : null,
     querySelectorAll: selector => selector === '[data-animated-stats]' ? [strip]
-      : selector === '[data-updates]' ? [panel] : selector.startsWith('.about-introduction>p') && copyText ? [copyParagraph]
+      : selector === '[data-updates]' ? [panel] : selector.startsWith('.firm-principles article>p') && copyText ? [copyParagraph]
       : selector === '[data-people-rail]' && withCarousel ? [carousel]
       : selector.startsWith('.contact-band,footer') ? [footer] : [],
     createElement: makeElement, createTextNode: textContent => ({ textContent }),
