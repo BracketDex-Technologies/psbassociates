@@ -139,6 +139,7 @@
 .contact-office-phones { margin-top: 18px; font-size: .9375rem; }
 .contact-office-phones > .contact-icon { margin-top: 7px; }
 .contact-directions { display: inline-flex; align-items: center; gap: 16px; border-bottom: 1px solid #b48a4d; padding-bottom: 4px; padding-top: 18px; margin-top: auto; font-size: .9375rem; font-weight: 500; }
+.contact-map-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 10px; padding-bottom: 4px; border-bottom: 1px solid #b48a4d; color: #806035; font-size: .8125rem; font-weight: 600; }
 .contact-directions .contact-icon { width: 18px; height: 18px; }
 .contact-office iframe { display: block; width: 100%; height: 218px; border: 1px solid #dfe5e9; border-radius: 6px; background: #f6f4ef; margin-top: 20px; }
 

@@ -75,6 +75,7 @@ export function contactPage({ offices, practices }) {
             <a class="contact-directions" href="${office.directions || `https://www.google.com/maps/search/?api=1&amp;query=${encodeURIComponent(office.map)}`}" target="_blank" rel="noopener">View directions${icon('arrow-right')}<span class="sr-only"> to the ${escapeHtml(office.city)} office</span></a>
             <details class="office-map" data-responsive-details open><summary>View map<span class="sr-only"> of the ${escapeHtml(office.city)} office</span></summary>
             <iframe title="Map of ${escapeHtml(office.city)} office area" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=${encodeURIComponent(office.map)}&amp;output=embed"></iframe>
+            <a class="contact-map-link" href="${office.directions || `https://www.google.com/maps/search/?api=1&amp;query=${encodeURIComponent(office.map)}`}" target="_blank" rel="noopener">Open exact location in Google Maps<span class="sr-only"> for the ${escapeHtml(office.city)} office</span></a>
             </details>
           </article>`).join('\n')}
         </div>

@@ -89,3 +89,17 @@ test('Hingoli phone and WhatsApp use the updated number, including structured da
   assert.ok(contact.includes('"telephone":"+91-8390673946"'));
   assert.doesNotMatch(contact, /9403806446/);
 });
+
+test('office directions open the exact Google Maps listings', () => {
+  const contact = fs.readFileSync('dist/contact/index.html', 'utf8');
+  const expected = {
+    'office-chhatrapati-sambhajinagar': 'https://maps.app.goo.gl/7TmXqXdL8Yi5ZjWp7',
+    'office-hingoli': 'https://maps.app.goo.gl/qTBWfQB6sU4EMgei9',
+    'office-pune': 'https://maps.app.goo.gl/kXgueiyf7dEYAdwx8?g_st=iw',
+  };
+  for (const [id, href] of Object.entries(expected)) {
+    const article = contact.match(new RegExp(`<article class="contact-office" id="${id}">([\\s\\S]*?)</article>`))?.[1];
+    assert.ok(article, `${id} office must be rendered`);
+    assert.match(article, new RegExp(`href="${href.replace(/[.?]/g, '\\$&')}"`));
+  }
+});
